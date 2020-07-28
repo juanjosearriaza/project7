@@ -1,0 +1,89 @@
+<template>
+  <div id="app">
+    <b-container fluid class="mt-3">
+      <b-row>
+        <Sidemenu></Sidemenu>
+        <div class="col-md-6">
+          <b-row>
+            <Card
+              v-for="post in allPosts"
+              :id="post.postId"
+              :title="post.title"
+              :description="post.description"
+              :image="post.image"
+              :key="post.postId"
+            ></Card>
+          </b-row>
+        </div>
+
+        <b-col class="d-none d-sm-block" md="3">
+          <img
+            src="../assets/icon-above-font.png"
+            style="height:300px;widht:300px"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+    <Footer :copyright="copyright"></Footer>
+  </div>
+</template>
+
+<script>
+import Sidemenu from "../components/Sidemenu";
+import Card from "../components/Card";
+import Footer from "../components/Footer";
+//import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
+
+
+export default {
+  name: "App",
+  components: { Sidemenu, Card, Footer },
+  /*data() {
+    return {
+      posts: [],
+    };
+  },*/
+  mounted() {
+    this.loadPosts()
+  /*async mounted() {
+    try {
+      const response = await axios.get("http://localhost:3000/api/posts/", {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token")
+        },
+      });
+      return (this.posts = response.data);
+    } catch (err) {
+      console.log(err);
+      this.$router.push("/")
+    }
+  },*/
+  },
+  methods: {
+    ...mapActions(["loadPosts"]),
+    
+  },
+
+  computed: {
+    ...mapGetters(["allPosts"]),
+    
+
+    copyright() {
+      const currentYear = new Date().getFullYear();
+
+      return `Copyright ${currentYear}`;
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #f2f3f5;
+}
+</style>
