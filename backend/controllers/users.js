@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
           .status(401)
           .json({ error: new Error("Incorrect Password!") });
       }
-      const token = jwt.sign({ userId: user.userId }, "SECRET_WORD", {
+      const token = jwt.sign({ userId: user.id }, "SECRET_WORD", {
         expiresIn: "24h",
       });
      return res

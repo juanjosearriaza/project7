@@ -18,7 +18,7 @@ router.get("/", auth, async (req, res) => {
 
 router.get("/:id", auth, async (req, res) => {
   try {
-    const post = await Post.findOne({ where: { postId: req.params.id } });
+    const post = await Post.findOne({ where: { id: req.params.id } });
     res.status(200).json(post);
   } catch (err) {
     console.log(err);
@@ -28,7 +28,7 @@ router.get("/:id", auth, async (req, res) => {
 
 router.put("/:id", auth, multer, async (req, res) => {
   
-  let post = await Post.findOne({ where: { postId: req.params.id } })
+  let post = await Post.findOne({ where: { id: req.params.id } })
   
   if(req.file) {
     const url = req.protocol + "://" + req.get("host");
@@ -53,7 +53,7 @@ router.put("/:id", auth, multer, async (req, res) => {
 
   try {
     const response = await Post.update( post,
-      { where: { postId: req.params.id } }
+      { where: { id: req.params.id } }
       
     );
     res.status(201).json({ message: "Post updated successfully!" });
@@ -84,10 +84,10 @@ router.post("/", auth, multer, async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const post = await Post.findOne({ where: { postId: req.params.id } });
+    const post = await Post.findOne({ where: { id: req.params.id } });
     const filename = post.image.split("/images/")[1];
     fs.unlink("images/" + filename, () => {
-      Post.destroy({ where: { postId: req.params.id } });
+      Post.destroy({ where: { id: req.params.id } });
       res.status(200).json({ message: "Post deleted successfully!" });
     });
   } catch (err) {

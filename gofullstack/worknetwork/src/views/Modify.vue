@@ -64,7 +64,7 @@ export default {
     post() {
       const posts = this.$store.getters.allPosts;
 
-      return posts.find((post) => this.postId == post.postId);
+      return posts.find((post) => this.postId == post.id);
     },
   },
   /*async mounted() {
@@ -90,7 +90,7 @@ export default {
 
     onUpdate() {
       const updatedPost = new FormData();
-      updatedPost.append("postId", this.post.postId);
+      updatedPost.append("id", this.post.id);
       updatedPost.append("image", this.post.image);
       updatedPost.append("title", this.post.title);
       updatedPost.append("description", this.post.description);

@@ -10,7 +10,7 @@
             <router-link :to="{ name: 'Modifyapost', params:{ postId }}">
               <a href="#" class="btn btn-primary mt-3 float-left">Modify</a>
             </router-link>
-            <b-button @click="deletePost(postId)" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>
+            <b-button @click="deletePost(id)" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>
             
           </div>
           
@@ -39,7 +39,7 @@ export default {
     post() {
       const posts = this.$store.getters.allPosts
 
-      return posts.find((post) => this.postId == post.postId)
+      return posts.find((post) => this.postId == post.id)
     }
     
   },

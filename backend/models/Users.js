@@ -4,11 +4,11 @@ const Post = require("./Posts");
 
 
 const User = db.define("user", {    
-      id: {
+      /*id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
+      },*/
       firstname: {
         type: DataTypes.STRING,
         allowNull: false,          
@@ -26,12 +26,12 @@ const User = db.define("user", {
         type: DataTypes.STRING,
         allowNull: false,          
       },  
-      createdAt: {
+      /*createdAt: {
         type: DataTypes.DATE,
       },
       updatedAt: {
         type: DataTypes.DATE,
-      },
+      },*/
 });
 
 module.exports = User;

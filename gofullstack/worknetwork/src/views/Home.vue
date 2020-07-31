@@ -7,11 +7,11 @@
           <b-row>
             <Card
               v-for="post in allPosts"
-              :id="post.postId"
+              :id="post.id"
               :title="post.title"
               :description="post.description"
               :image="post.image"
-              :key="post.postId"
+              :key="post.id"
             ></Card>
           </b-row>
         </div>

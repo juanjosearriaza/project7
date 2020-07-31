@@ -4,11 +4,11 @@ const User = require("./Users")
 
 
 const Post = db.define("post", {
-  postId: {
+  /*/id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-  },
+  },*/
   title: {
     type: DataTypes.STRING,
   },
@@ -18,12 +18,12 @@ const Post = db.define("post", {
   image: {
     type: DataTypes.STRING,
   },
-  createdAt: {
+  /*createdAt: {
     type: DataTypes.DATE,
   },
   updatedAt: {
     type: DataTypes.DATE,
-  },
+  },*/
   userId: {
     type: DataTypes.INTEGER,
     references: {
