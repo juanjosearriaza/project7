@@ -21,7 +21,11 @@
             placeholder="Enter description"
           ></b-form-input>
         </b-form-group>
-        <b-card-img :src="post.image" alt="Image" class="rounded-0" style="width:100%"></b-card-img>
+        <div id="preview">
+          <b-card-img v-if="image" :src="image" alt="Image" class="rounded-0" style="width:100%"></b-card-img>
+          <b-card-img v-else :src="post.image" alt="Image" class="rounded-0" style="width:100%"></b-card-img>
+        </div>
+
 
         <b-form-group class="mt-3" id="file" label="Image:" label-for="file">
           <b-form-file
@@ -31,7 +35,7 @@
           ></b-form-file>
         </b-form-group>
         <div class="d-flex justify-content-center align-items-center">
-          <b-button @click="onUpdate(post)" class="d-inline-block" variant="primary">Update</b-button>
+          <b-button @click="onUpdate()" class="d-inline-block" variant="primary">Update</b-button>
         </div>
       </b-form>
     </b-card>
@@ -41,7 +45,6 @@
 
 <script>
 import Footer from "../components/Footer";
-//import axios from "axios";
 import { mapActions } from "vuex";
 
 export default {
@@ -50,8 +53,7 @@ export default {
   data() {
     return {
       postId: this.$route.params.id,
-      //file: "",
-      //post: {}
+      image: null,
     };
   },
   computed: {
@@ -67,55 +69,24 @@ export default {
       return posts.find((post) => this.postId == post.id);
     },
   },
-  /*async mounted() {
-    try {
-      const postId = this.$route.params.id;
-      const response = await axios.get(
-        "http://localhost:3000/api/posts/" + postId
-      );
-      return (this.post = response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  },*/
+
   methods: {
     ...mapActions(["updatePost"]),
 
     onFileSelected(event) {
-      this.post.image = event.target.files[0];
-
-      //this.post.image = event.target.files[0];
-      console.log(this.post);
+      let file = event.target.files[0];
+      this.post.image = file;
+      this.image = URL.createObjectURL(file);
     },
 
     onUpdate() {
-      const updatedPost = new FormData();
-      updatedPost.append("id", this.post.id);
-      updatedPost.append("image", this.post.image);
-      updatedPost.append("title", this.post.title);
-      updatedPost.append("description", this.post.description);
-      this.updatePost(updatedPost);
+      const formData = new FormData();
+      formData.set("id", this.post.id);
+      formData.append("image", this.post.image);
+      formData.set("title", this.post.title);
+      formData.set("description", this.post.description);
+      this.updatePost(formData);
     },
-    /*onUpdate() {
-      const updatedPost = new FormData();
-      updatedPost.append("image", this.post.image);
-      updatedPost.append("title", this.post.title);
-      updatedPost.append("description", this.post.description);
-      this.updatePost(updatedPost);
-    }*/
-    /*async onUpload() {
-      const fd = new FormData();
-      fd.append("image", this.post.image);
-      fd.append("title", this.post.title);
-      fd.append("description", this.post.description);
-      
-      try {
-        const postId = this.$route.params.id
-        await axios.put("http://localhost:3000/api/posts/" + postId, fd);
-      } catch (err) {
-        console.log(err);
-      }
-    }*/
   },
 };
 </script>

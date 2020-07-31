@@ -43,12 +43,12 @@ const actions = {
       console.log(err);
     }
   },
-  async updatePost({ commit }, updatedPost) {
+  async updatePost({ commit }, formData) {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/posts/${updatedPost.postId}`, updatedPost, { headers: {
-          authorization: "Bearer " + localStorage.getItem("token")
-        }}
+        `http://localhost:3000/api/posts/${formData.get("id")}`, formData, { headers: {
+          authorization: "Bearer " + localStorage.getItem("token"), 'Content-Type': 'multipart/form-data' 
+        }, }
       );
       commit("UPDATE_POST", response.data);
     } catch (err) {
