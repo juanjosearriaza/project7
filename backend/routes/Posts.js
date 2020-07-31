@@ -31,12 +31,24 @@ router.put("/:id", auth, multer, async (req, res) => {
   let post = await Post.findOne({ where: { id: req.params.id } })
   
   if(req.file) {
+    const filename = post.image.split("/images/")[1];
+    fs.unlink("images/" + filename, (error) => {
+      if(error) {
+        console.log(error)
+      } else {
+        console.log('successfully deleted local image');
+      }
+
+    });
     const url = req.protocol + "://" + req.get("host");
     post = {
       title: req.body.title,
       description: req.body.description,
       image: url + "/images/" + req.file.filename
     }
+
+
+
   } else {
     post = {
       title: req.body.title,
@@ -44,12 +56,6 @@ router.put("/:id", auth, multer, async (req, res) => {
       image: req.body.image,
     }
   }
-
-  /*const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
-    image: url + "/images/" + req.file.filename,
-  });*/
 
   try {
     const response = await Post.update( post,

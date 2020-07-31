@@ -10,7 +10,7 @@
             <router-link :to="{ name: 'Modifyapost', params:{ postId }}">
               <a href="#" class="btn btn-primary mt-3 float-left">Modify</a>
             </router-link>
-            <b-button @click="deletePost(id)" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>
+            <b-button @click="deletePost(postId)" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>
             
           </div>
           
@@ -44,39 +44,9 @@ export default {
     
   },
   methods: {
-    ...mapActions(["deletePost"]),
-
-    
-
-    /*DeletePost() {
-      this.deletePost(this.postId)
-      this.show = true
-    }*/
-
-    /*async DeletePost() {
-      try {
-        const postId = this.$route.params.id;
-        const response = await axios.delete(
-          "http://localhost:3000/api/posts/" + postId
-        );
-        return (this.post = response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }*/
+    ...mapActions(["deletePost"]),  
   },
-  /*async created() {
-    console.log(this.posts)
-    try {
-      const postId = this.$route.params.id;
-      const response = await axios.get(
-        "http://localhost:3000/api/posts/" + postId
-      );
-      return (this.post = response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }*/
+  
 };
 </script>
 
