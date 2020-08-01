@@ -32,33 +32,16 @@
 import Sidemenu from "../components/Sidemenu";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
-//import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 
 
 export default {
   name: "App",
   components: { Sidemenu, Card, Footer },
-  /*data() {
-    return {
-      posts: [],
-    };
-  },*/
+  
   mounted() {
     this.loadPosts()
-  /*async mounted() {
-    try {
-      const response = await axios.get("http://localhost:3000/api/posts/", {
-        headers: {
-          authorization: "Bearer " + localStorage.getItem("token")
-        },
-      });
-      return (this.posts = response.data);
-    } catch (err) {
-      console.log(err);
-      this.$router.push("/")
-    }
-  },*/
+ 
   },
   methods: {
     ...mapActions(["loadPosts"]),
