@@ -8,6 +8,7 @@
             <Card
               v-for="post in allPosts"
               :id="post.id"
+              :userId="post.userId"
               :title="post.title"
               :description="post.description"
               :image="post.image"
@@ -40,16 +41,17 @@ export default {
   components: { Sidemenu, Card, Footer },
   
   mounted() {
-    this.loadPosts()
+    this.loadPosts(),
+    this.loadUsers()
  
   },
   methods: {
-    ...mapActions(["loadPosts"]),
+    ...mapActions(["loadPosts", "loadUsers"]),
     
   },
 
   computed: {
-    ...mapGetters(["allPosts"]),
+    ...mapGetters(["allPosts", "allUsers"]),
     
 
     copyright() {

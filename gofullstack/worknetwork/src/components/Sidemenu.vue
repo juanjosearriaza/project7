@@ -4,7 +4,7 @@
       <b-collapse id="vet-nav-collapse" is-nav>
         <div>
           <b-nav vertical class="text-left">
-            <b-nav-item href="#">Email</b-nav-item>
+            <b-nav-item href="#">Welcome {{ user.firstname }} {{ user.lastname }}</b-nav-item>
             <b-nav-item href="#"><router-link to="/createapost">Create a Post</router-link></b-nav-item>
             <b-nav-item href="#">Events</b-nav-item>
             <b-nav-item href="#">Jobs</b-nav-item>
@@ -19,6 +19,13 @@
 <script>
 export default {
   name: "Sidemenu",
+  computed: {
+    user() {
+      const users = this.$store.getters.allUsers;
+
+      return users.find((user) => localStorage.getItem("userId") == user.id);
+    },
+  }
 
 };
 </script>

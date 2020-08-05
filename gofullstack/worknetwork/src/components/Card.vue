@@ -1,8 +1,10 @@
 <template>
   <div class="card mb-3" style="width:100%">
-    <div class="card-header mx-0 my-0">
-      <p class="text-left">user.image + user.email</p>
-    </div>
+    <b-list-group-item class="d-flex align-items-center">
+        <b-avatar class="mr-3"></b-avatar>
+        <span class="mr-auto">{{ user.firstname }} {{  user.lastname }}</span>
+        <b-badge>{{ user.createdAt }}</b-badge>
+      </b-list-group-item>
     <div class="card-body">
       <h5 class="card-title text-left">{{ title }}</h5>
       <p class="card-text text-left">{{ description }}</p>
@@ -22,7 +24,14 @@
 
 export default {
   name: "Card",
-  props: ["id", "title", "description", "image"],  
+  props: ["id", "title", "description", "image", "userId"],  
+  computed: {
+    user() {
+      const users = this.$store.getters.allUsers;
+
+      return users.find((user) => this.userId == user.id);
+    },
+  }
 };
 </script>
 

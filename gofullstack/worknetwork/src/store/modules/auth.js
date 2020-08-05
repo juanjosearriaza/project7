@@ -18,6 +18,7 @@ const actions = {
           );
           commit("ON_LOGIN", response.data.token);
           localStorage.setItem("token", response.data.token)
+          localStorage.setItem("userId", response.data.userId)
           router.push("/home");
         } catch (err) {
           console.log(err);

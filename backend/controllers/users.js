@@ -2,6 +2,17 @@ const User = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({ order: [["createdAt", "DESC"]]});
+
+    res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ err });
+  }
+};
+
 exports.signup = async (req, res) => {
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
