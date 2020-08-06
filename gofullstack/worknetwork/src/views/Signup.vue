@@ -9,6 +9,8 @@
             v-model="$v.form.firstname.$model"
             type="text"
             required
+            lazy-formatter
+            :formatter="formatter"
             placeholder="Enter your First Name"
           ></b-form-input>
         </b-form-group>
@@ -18,6 +20,8 @@
             v-model="$v.form.lastname.$model"
             type="text"
             required
+            lazy-formatter
+            :formatter="formatter"
             placeholder="Enter your Last Name"
           ></b-form-input>
         </b-form-group>
@@ -131,6 +135,11 @@ export default {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
     },
+    formatter(value) {
+
+      return value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ')
+      
+      },
     async onSignup() {
       this.$v.form.$touch();
       try {

@@ -12,6 +12,7 @@
               :title="post.title"
               :description="post.description"
               :image="post.image"
+              :createdAt="post.createdAt"
               :key="post.id"
             ></Card>
           </b-row>

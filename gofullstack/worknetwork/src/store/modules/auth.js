@@ -26,6 +26,7 @@ const actions = {
       },
       onLogout({ commit }) {
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         router.push("/");
         commit("ON_LOGOUT");
       },

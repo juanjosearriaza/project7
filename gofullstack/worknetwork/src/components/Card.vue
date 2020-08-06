@@ -3,7 +3,7 @@
     <b-list-group-item class="d-flex align-items-center">
         <b-avatar class="mr-3"></b-avatar>
         <span class="mr-auto">{{ user.firstname }} {{  user.lastname }}</span>
-        <b-badge>{{ user.createdAt }}</b-badge>
+        <b-badge>Posted {{ createdAt.split("T")[0] }}</b-badge>
       </b-list-group-item>
     <div class="card-body">
       <h5 class="card-title text-left">{{ title }}</h5>
@@ -24,7 +24,7 @@
 
 export default {
   name: "Card",
-  props: ["id", "title", "description", "image", "userId"],  
+  props: ["id", "title", "description", "image", "userId", "createdAt"],  
   computed: {
     user() {
       const users = this.$store.getters.allUsers;
