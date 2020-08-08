@@ -12,6 +12,18 @@ exports.getAllUsers = async (req, res) => {
     res.status(404).json({ err });
   }
 };
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { id: req.params.id } });
+   
+      User.destroy({ where: { id: req.params.id } });
+      res.status(200).json({ message: "User deleted successfully!" });
+    ;
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ error });
+  }
+};
 
 exports.signup = async (req, res) => {
   try {

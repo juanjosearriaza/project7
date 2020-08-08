@@ -28,7 +28,7 @@ l.<template>
         <div v-else>
           <b-button @click="onLogout" pill class="mx-1" variant="light">Log out</b-button>
           <b-button pill class="mx-1" variant="light">
-            <router-link to="/manageyouraccount">Manage your account</router-link>
+            <router-link :to="{ name: 'Manageyouraccount', params:{ userId }}">Manage your account</router-link>
           </b-button>
         </div>
       </b-collapse>
@@ -41,11 +41,18 @@ l.<template>
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      userId: localStorage.getItem("userId"),
+          
+    };
+  },
   methods: {
     ...mapActions(["onLogout"])
   },
   computed: {
-    ...mapGetters(["isAuthenticated"])
+    ...mapGetters(["isAuthenticated"]),
+    
   }
 };
 </script>

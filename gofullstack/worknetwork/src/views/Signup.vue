@@ -146,12 +146,12 @@ export default {
         if (this.$v.form.$anyError) {
           return;
         } else {
-          const response = await axios.post(
+          await axios.post(
             "http://localhost:3000/api/auth/signup",
             this.form
           );
           this.show = true
-          console.log(response);
+          
         }
       } catch (err) {
         console.log(err);
