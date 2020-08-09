@@ -2,7 +2,7 @@
   <div id="app">
     <b-container fluid class="mt-3">
       <b-row>
-        <Sidemenu></Sidemenu>
+        <Sidemenu :firstname="user.firstname" :lastname="user.lastname"></Sidemenu>
         <div class="col-md-6">
           <b-row>
             <Card
@@ -59,6 +59,11 @@ export default {
       const currentYear = new Date().getFullYear();
 
       return `Copyright ${currentYear}`;
+    },
+    user() {
+      const users = this.$store.getters.allUsers;
+
+      return users.find((user) => localStorage.getItem("userId") == user.id);
     },
   },
 };

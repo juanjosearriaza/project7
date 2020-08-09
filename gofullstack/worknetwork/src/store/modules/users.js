@@ -1,5 +1,4 @@
 import axios from "axios";
-//import router from "../../router";
 
 const state = {
   users: [],
@@ -40,10 +39,7 @@ const actions = {
 const mutations = {
   SET_USERS: (state, users) => (state.users = users),
   DELETE_USER: (state, id) =>
-    (state.users = state.users.filter((user) => user.id !== id)),
-    
-    
-  
+    (state.users = state.users.filter((user) => user.id !== id)),  
 };
 
 export default {

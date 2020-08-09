@@ -50,9 +50,14 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "modifyapost" */ '../views/Modify.vue')  
   },
   {
-    path: '/manageyouraccount/:id',
+    path: '/manageyouraccount/:userId',
     name: 'Manageyouraccount',
     component: () => import(/* webpackChunkName: "signup" */ '../views/Manageyouraccount.vue')  
+  },
+  {
+    path: '/comments/:id',
+    name: 'Comments',
+    component: () => import(/* webpackChunkName: "signup" */ '../views/Comments.vue')  
   },
   
 

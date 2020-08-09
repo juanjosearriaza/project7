@@ -72,19 +72,7 @@ export default {
 
         
 
-    /*async onLogin() {
-      try {
-        const response = await axios.post(
-          "http://localhost:3000/api/auth/login",
-          this.form
-        );
-        console.log(response);
-        localStorage.setItem("token", response.data.token)
-        this.$router.push("/home");
-      } catch (err) {
-        console.log(err);
-      }
-    },*/
+    
   },
 };
 </script>
