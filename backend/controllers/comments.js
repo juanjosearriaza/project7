@@ -14,10 +14,10 @@ exports.getAllComments = async (req, res) => {
 exports.createComment = async (req, res) => {
   
     const comment = new Comment({
-      comment: req.body.comment
+      comment: req.body.comment,
+      postId: req.body.postId
     });
     comment.userId = req.userId
-  console.log(req)
     try {
       const response = await comment.save();
       res.status(201).json({ message: "Comment saved successfully!" });

@@ -10,9 +10,9 @@ const getters = {
 };
 
 const actions = {
-  async addComment({ commit }, fd) {
+  async addComment({ commit }, comment) {
     try {
-      const response = await axios.post("http://localhost:3000/api/comments/", fd, { headers: {
+      const response = await axios.post("http://localhost:3000/api/comments/", comment, { headers: {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
       commit("ADD_COMMENT", response.data);

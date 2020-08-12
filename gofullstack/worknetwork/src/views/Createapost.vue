@@ -78,22 +78,7 @@ export default {
     onFileSelected(event) {
       this.image = event.target.files[0];
     },
-    /*async onUpload() {
-      const fd = new FormData();
-      fd.append("image", this.post.image);
-      fd.append("title", this.post.title);
-      fd.append("description", this.post.description);
-      
-      try {
-        await axios.post("http://localhost:3000/api/posts", fd);
-        this.post.title= "",
-        this.post.description= "",
-        this.post.image= "",
-        this.show = true;
-      } catch (err) {
-        console.log(err);
-      }
-    }*/
+    
     onUpload(e) {
       e.preventDefault();
       const fd = new FormData();

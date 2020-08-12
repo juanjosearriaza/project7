@@ -2,7 +2,8 @@
   <div class="card mb-3" style="width:100%">
     <b-list-group-item class="d-flex align-items-center">
       <b-avatar class="mr-3"></b-avatar>
-      <span class="mr-auto">{{ user.firstname }} {{ user.lastname }}</span>
+
+      <span v-if="user" class="mr-auto">{{ user.firstname }} {{ user.lastname }}</span>
       <b-badge>Posted {{ createdAt.split("T")[0] }}</b-badge>
     </b-list-group-item>
     <div class="card-body">
@@ -17,19 +18,23 @@
         ></b-card-img>
       </router-link>
       <div class="footer">
-      <b-form-input
-        v-model="comment"
-        class="writeacomment rounded-pill"
-        type="text"
-        required
-        placeholder="Write a comment"
-      ></b-form-input>
-      <b-button @click="onSendComment" pill variant="primary">Send</b-button>
-      <router-link :to="{ name: 'Comments', params: { id } }"
-        ><b-button pill variant="success">Comments</b-button></router-link>
-
-      
-      
+        <b-form
+          
+          method="post"
+          
+        >
+          <b-form-input
+            v-model="comment"
+            class="rounded-pill"
+            type="text"
+            required
+            placeholder="Write a comment"
+          ></b-form-input
+        ></b-form>
+        <b-button @click="onSendComment" pill variant="primary">Send</b-button>
+        <router-link :to="{ name: 'Comments', params: { id } }"
+          ><b-button pill variant="success">Comments</b-button></router-link
+        >
       </div>
     </div>
   </div>
@@ -43,41 +48,43 @@ export default {
   props: ["id", "title", "description", "image", "userId", "createdAt"],
   data() {
     return {
-      comment:"",      
+      comment: "",
+      //id:"",
     };
   },
   computed: {
+    postId() {
+      const posts = this.$store.getters.allPosts;
+
+      return posts.find((post) => this.id == post.id).id
+    },
     user() {
       const users = this.$store.getters.allUsers;
 
-      return users.find((user) => this.userId == user.id);
+      return users.find((user) => this.userId == user.id) || {firstname: null, lastname: null}; 
     },
   },
   methods: {
     ...mapActions(["addComment"]),
 
-    
-
     onSendComment() {
-      const formData = new FormData();
-      formData.append("comment", this.comment);
-      
-      this.addComment(formData);
+      this.addComment({comment: this.comment, postId: this.postId});
     },
   },
 };
 </script>
 
 <style scoped>
-.footer{
+.footer {
   margin-top: 15px;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.writeacomment {
-  width: 80%
+form {
+  width: 80%;
 }
-button{
+button {
   margin-left: 10px;
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3" style="width:50%">
+  <b-card class="mt-5 mx-auto col-12 col-md-6">
     <b-list-group-item class="d-flex align-items-center">
         <b-avatar class="mr-3"></b-avatar>
         <span class="mr-auto">user.firstname   user.lastname </span>
@@ -12,7 +12,7 @@
   
       
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>

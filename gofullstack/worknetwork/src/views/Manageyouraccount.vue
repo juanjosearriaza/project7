@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="user">
+    
     <b-card class="mt-3 mx-auto col-12 col-md-4">
       <h2>Manage your account</h2>
       <div class="contactinfo">
@@ -43,7 +44,7 @@ export default {
     user() {
       const users = this.$store.getters.allUsers;
 
-      return users.find((user) => localStorage.getItem("userId") == user.id);
+      return users.find((user) => localStorage.getItem("userId") == user.id) || {firstname: null, lastname: null};
     },
   },
   methods: {

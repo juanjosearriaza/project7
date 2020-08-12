@@ -2,7 +2,12 @@
   <div id="app">
     <b-container fluid class="mt-3">
       <b-row>
-        <Sidemenu :firstname="user.firstname" :lastname="user.lastname"></Sidemenu>
+        
+
+          
+       <Sidemenu v-if="user" :firstname="user.firstname" :lastname="user.lastname"></Sidemenu>
+        
+       
         <div class="col-md-6">
           <b-row>
             <Card
@@ -39,7 +44,9 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
-  components: { Sidemenu, Card, Footer },
+  components: { 
+    Sidemenu,
+   Card, Footer },
   
   mounted() {
     this.loadPosts(),
@@ -63,7 +70,7 @@ export default {
     user() {
       const users = this.$store.getters.allUsers;
 
-      return users.find((user) => localStorage.getItem("userId") == user.id);
+      return users.find((user) => localStorage.getItem("userId") == user.id) || {firstname: null, lastname: null}; 
     },
   },
 };
