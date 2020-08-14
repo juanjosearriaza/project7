@@ -2,12 +2,12 @@
   <div id="app">
     <b-container fluid class="mt-3">
       <b-row>
-        
+        <Sidemenu
+          v-if="user"
+          :firstname="user.firstname"
+          :lastname="user.lastname"
+        ></Sidemenu>
 
-          
-       <Sidemenu v-if="user" :firstname="user.firstname" :lastname="user.lastname"></Sidemenu>
-        
-       
         <div class="col-md-6">
           <b-row>
             <Card
@@ -19,8 +19,21 @@
               :image="post.image"
               :createdAt="post.createdAt"
               :key="post.id"
+              
             ></Card>
+            
           </b-row>
+          <!--<b-row v-show="show">
+            <Comment
+              v-for="comment in allComments"
+              :id="comment.id"
+              :userId="comment.userId"
+              :postId="comment.postId"
+              :comment="comment.comment"
+              :createdAt="comment.createdAt"
+              :key="comment.id"
+            ></Comment>
+          </b-row>-->
         </div>
 
         <b-col class="d-none d-sm-block" md="3">
@@ -37,30 +50,26 @@
 
 <script>
 import Sidemenu from "../components/Sidemenu";
+
 import Card from "../components/Card";
 import Footer from "../components/Footer";
 import { mapGetters, mapActions } from "vuex";
 
-
 export default {
   name: "App",
-  components: { 
-    Sidemenu,
-   Card, Footer },
-  
-  mounted() {
-    this.loadPosts(),
-    this.loadUsers()
+  components: { Sidemenu, Card, Footer },
  
+  mounted() {
+    this.loadPosts(), this.loadUsers(), this.loadComments();
   },
   methods: {
-    ...mapActions(["loadPosts", "loadUsers"]),
+    ...mapActions(["loadPosts", "loadUsers", "loadComments"]),
+
     
   },
 
   computed: {
-    ...mapGetters(["allPosts", "allUsers"]),
-    
+    ...mapGetters(["allPosts", "allUsers", "allComments"]),
 
     copyright() {
       const currentYear = new Date().getFullYear();
@@ -70,7 +79,12 @@ export default {
     user() {
       const users = this.$store.getters.allUsers;
 
-      return users.find((user) => localStorage.getItem("userId") == user.id) || {firstname: null, lastname: null}; 
+      return (
+        users.find((user) => localStorage.getItem("userId") == user.id) || {
+          firstname: null,
+          lastname: null,
+        }
+      );
     },
   },
 };

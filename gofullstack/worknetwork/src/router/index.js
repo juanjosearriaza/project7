@@ -54,11 +54,7 @@ Vue.use(VueRouter)
     name: 'Manageyouraccount',
     component: () => import(/* webpackChunkName: "signup" */ '../views/Manageyouraccount.vue')  
   },
-  {
-    path: '/comments/:id',
-    name: 'Comments',
-    component: () => import(/* webpackChunkName: "signup" */ '../views/Comments.vue')  
-  },
+  
   
 
 

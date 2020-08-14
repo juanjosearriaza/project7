@@ -21,18 +21,18 @@ const actions = {
       console.log(err);
     }
   },
-  /*async loadPosts({ commit }) {
+  async loadComments({ commit }) {
     try {
-      const response = await axios.get("http://localhost:3000/api/posts/", { headers: {
+      const response = await axios.get("http://localhost:3000/api/comments/", { headers: {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
-      commit("SET_POSTS", response.data);
+      commit("SET_COMMENTS", response.data);
     } catch (err) {
       console.log(err);
     }
   },
   
-  async deletePost({ commit }, id) {
+  /*async deletePost({ commit }, id) {
     try {
       const response = await axios.delete(
         `http://localhost:3000/api/posts/${id}`, { headers: {
@@ -59,7 +59,7 @@ const actions = {
 };
 
 const mutations = {
-  //SET_POSTS: (state, posts) => (state.posts = posts),
+  SET_COMMENTS: (state, comments) => (state.comments = comments),
   ADD_COMMENT: (state, comment) => (state.comments.unshift(comment)),
   /*DELETE_POST: (state, id) =>
     (state.posts = state.posts.filter((post) => post.id !== id)),

@@ -32,27 +32,40 @@
           ></b-form-input
         ></b-form>
         <b-button @click="onSendComment" pill variant="primary">Send</b-button>
-        <router-link :to="{ name: 'Comments', params: { id } }"
-          ><b-button pill variant="success">Comments</b-button></router-link
-        >
+        <b-button id="comment" @click="onShowComments" pill variant="success"> {{ rightComment.length }}<i @click="onShowComments" class="far fa-comment-alt"></i></b-button>
+        
       </div>
     </div>
+    <Comment
+              v-show="show"
+              v-for="comment in rightComment"
+              :id="comment.id"
+              :userId="comment.userId"
+              :postId="comment.postId"
+              :comment="comment.comment"
+              :createdAt="comment.createdAt"
+              :key="comment.id"
+            ></Comment>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import Comment from "../components/Comment";
 
 export default {
   name: "Card",
   props: ["id", "title", "description", "image", "userId", "createdAt"],
+  components: { Comment },
   data() {
     return {
-      comment: "",
-      //id:"",
+      comment: "",  
+      show: false,    
     };
   },
   computed: {
+     ...mapGetters(["allComments"]),
+
     postId() {
       const posts = this.$store.getters.allPosts;
 
@@ -63,13 +76,26 @@ export default {
 
       return users.find((user) => this.userId == user.id) || {firstname: null, lastname: null}; 
     },
+    rightComment() {
+      const comments = this.$store.getters.allComments;
+
+      return comments.filter((comment) => this.id == comment.postId)
+    }
+
   },
   methods: {
-    ...mapActions(["addComment"]),
+    ...mapActions(["addComment", "loadComments"]),
 
     onSendComment() {
       this.addComment({comment: this.comment, postId: this.postId});
+      this.comment = ""
     },
+
+    onShowComments() {
+      this.show = !this.show
+    }
+
+    
   },
 };
 </script>
@@ -86,5 +112,12 @@ form {
 }
 button {
   margin-left: 10px;
+}
+#comment {
+  display: flex;
+}
+svg {
+  display: flex;
+  margin: auto 3px;
 }
 </style>
