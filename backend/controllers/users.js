@@ -1,6 +1,9 @@
 const User = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Comment = require("../models/Comments");
+const Post = require("../models/Posts");
+
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -15,7 +18,8 @@ exports.getAllUsers = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } });
-   
+      Comment.destroy({ where: { userId: req.params.id }})
+      Post.destroy({ where: { userId: req.params.id }})
       User.destroy({ where: { id: req.params.id } });
       res.status(200).json({ message: "User deleted successfully!" });
     ;

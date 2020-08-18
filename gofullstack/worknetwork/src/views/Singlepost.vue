@@ -6,14 +6,25 @@
           <div class="card-body">
             <h5 class="card-title text-left">{{ post.title }}</h5>
             <p class="card-text text-left">{{ post.description }}</p>
-            <b-card-img :src="post.image" alt="Image" class="rounded-0" style="width:100%"></b-card-img>
-            <router-link :to="{ name: 'Modifyapost', params:{ postId }}">
+            <b-card-img
+              :src="post.image"
+              alt="Image"
+              class="rounded-0"
+              style="width:100%"
+            ></b-card-img>
+            <router-link :to="{ name: 'Modifyapost', params: { postId } }">
               <a href="#" class="btn btn-primary mt-3 float-left">Modify</a>
             </router-link>
-            <b-button @click="deletePost(postId)" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>
-            
+            <!--<b-button  @click="deletePost(postId); show=true" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>-->
+            <b-button
+              @click="onDelete"
+              class="btn btn-danger mt-3 ml-2 float-left"
+              >Delete</b-button
+            >
           </div>
-          
+          <b-alert id="alert" class="mt-3" :show="show"
+            >Post deleted successfully!</b-alert
+          >
         </div>
       </div>
     </b-row>
@@ -21,33 +32,58 @@
 </template>
 
 <script>
-//import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Singlepost",
-  //props: ["id", "title", "description", "image"],
   data() {
     return {
       postId: this.$route.params.id,
-          
+      show: false,
     };
   },
   computed: {
     ...mapGetters(["allPosts"]),
-    
-    post() {
-      const posts = this.$store.getters.allPosts
 
-      return posts.find((post) => this.postId == post.id)
-    }
-    
+    post() {
+      const posts = this.$store.getters.allPosts;
+
+      return posts.find((post) => this.postId == post.id);
+    },
   },
   methods: {
-    ...mapActions(["deletePost"]),  
+    ...mapActions(["deletePost"]),
+
+    onDelete() {
+      this.$swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.value) {
+            this.$swal.fire(
+              "Deleted!",
+              "Your file has been deleted.",
+              "success",
+              this.deletePost(this.postId)
+            );
+          }
+        });
+    },
   },
-  
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#alert {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

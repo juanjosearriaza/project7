@@ -12,7 +12,7 @@
         <div>{{ user.email }}</div>
       </div>
       <div class="d-flex justify-content-center align-items-center">
-          <b-button @click="deleteUser(user.id)" type="submit" class="d-inline-block" variant="danger">Delete Account</b-button>
+          <b-button @click="onDelete" type="submit" class="d-inline-block" variant="danger">Delete Account</b-button>
          
         </div>
     </b-card>
@@ -48,7 +48,30 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["deleteUser"])
+    ...mapActions(["deleteUser"]),
+
+    onDelete() {
+      this.$swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.value) {
+            this.$swal.fire(
+              "Deleted!",
+              "Your file has been deleted.",
+              "success",
+              this.deleteUser(this.user.id)
+            );
+          }
+        });
+    },
   }
 };
 </script>

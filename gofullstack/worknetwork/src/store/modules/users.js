@@ -28,6 +28,7 @@ const actions = {
         }
       );
       commit("DELETE_USER", response.data);
+      localStorage.removeItem("vuex")
       dispatch("onLogout")
     } catch (err) {
       console.log(err);

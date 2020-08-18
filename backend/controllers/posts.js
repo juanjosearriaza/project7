@@ -1,5 +1,6 @@
 const Post = require("../models/Posts");
 const fs = require("fs");
+const Comment = require("../models/Comments");
 
 exports.getAllPost = async (req, res) => {
     try {
@@ -87,6 +88,7 @@ exports.deletePost = async (req, res) => {
       const post = await Post.findOne({ where: { id: req.params.id } });
       const filename = post.image.split("/images/")[1];
       fs.unlink("images/" + filename, () => {
+        Comment.destroy({ where: { postId: req.params.id }})
         Post.destroy({ where: { id: req.params.id } });
         res.status(200).json({ message: "Post deleted successfully!" });
       });

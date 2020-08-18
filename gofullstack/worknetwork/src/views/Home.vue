@@ -18,22 +18,13 @@
               :description="post.description"
               :image="post.image"
               :createdAt="post.createdAt"
+              :hasBeenRead="post.hasBeenRead"
               :key="post.id"
               
             ></Card>
             
           </b-row>
-          <!--<b-row v-show="show">
-            <Comment
-              v-for="comment in allComments"
-              :id="comment.id"
-              :userId="comment.userId"
-              :postId="comment.postId"
-              :comment="comment.comment"
-              :createdAt="comment.createdAt"
-              :key="comment.id"
-            ></Comment>
-          </b-row>-->
+          
         </div>
 
         <b-col class="d-none d-sm-block" md="3">

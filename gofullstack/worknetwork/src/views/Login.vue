@@ -26,12 +26,13 @@
           ></b-form-input>
         </b-form-group>
         <div class="d-flex justify-content-center align-items-center">
-          <b-button @click="onLogin(form)" class="d-inline-block" variant="primary"
+          <b-button @click="onCheckLogin" class="d-inline-block" variant="primary"
             >Log in</b-button
           >
 
           <router-link to="/login">Forgot Password?</router-link>
         </div>
+        <b-alert variant="danger" class="mt-3" :show="show">Incorrect combination of email and password, please try again.</b-alert>
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -53,6 +54,7 @@ export default {
         email: "",
         password: "",
       },
+      show: false,
     };
   },
   computed: {
@@ -69,6 +71,14 @@ export default {
 
 
     ...mapActions(["onLogin"]),
+
+    onCheckLogin() {
+      this.onLogin(this.form)
+
+      if(!localStorage.getItem("userId")) {
+        this.show = true
+      } 
+    }
 
         
 

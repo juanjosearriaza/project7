@@ -26,7 +26,7 @@ const actions = {
       const response = await axios.get("http://localhost:3000/api/comments/", { headers: {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
-      commit("SET_COMMENTS", response.data);
+      commit("LOAD_COMMENTS", response.data);
     } catch (err) {
       console.log(err);
     }
@@ -59,7 +59,7 @@ const actions = {
 };
 
 const mutations = {
-  SET_COMMENTS: (state, comments) => (state.comments = comments),
+  LOAD_COMMENTS: (state, comments) => (state.comments = comments),
   ADD_COMMENT: (state, comment) => (state.comments.unshift(comment)),
   /*DELETE_POST: (state, id) =>
     (state.posts = state.posts.filter((post) => post.id !== id)),

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import router from "../../router"
 
 const state = {
   posts: [],
@@ -33,12 +33,14 @@ const actions = {
   },
   async deletePost({ commit }, id) {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `http://localhost:3000/api/posts/${id}`, { headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }}
       );
-      commit("DELETE_POST", response.data);
+      
+      commit("DELETE_POST", id);
+      router.push("/home");
     } catch (err) {
       console.log(err);
     }

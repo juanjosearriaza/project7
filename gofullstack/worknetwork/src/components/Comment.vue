@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3" style="width:100%">
+  <div style="width:100%">
     <b-list-group-item class="d-flex align-items-left">
       <b-avatar class="mr-2"></b-avatar>
       <div id="comment">
@@ -7,11 +7,14 @@
         <div class="card-text text-left">{{ comment }}</div>
       </div>
     </b-list-group-item>
-    <p>Posted {{ createdAt }}</p>
+    <p>Posted {{ time }} </p>
   </div>
 </template>
 
 <script>
+
+var moment = require('moment'); 
+
 export default {
   name: "Comment",
   props: ["id", "comment", "userId", "postId", "createdAt"],
@@ -26,8 +29,16 @@ export default {
         }
       );
     },
+
+    time() {
+      const posted = moment(this.createdAt)
+
+      return posted.fromNow()
+    }
   },
 };
+
+
 </script>
 
 <style scoped>
@@ -51,5 +62,7 @@ h6 {
 p {
     text-align: left;
     margin-left: 65px;
+    font-size: 12px;
+    margin-top: -3px;
 }
 </style>

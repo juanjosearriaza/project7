@@ -9,6 +9,8 @@
             v-model="post.title"
             type="text"
             required
+            lazy-formatter
+            :formatter="formatter"
             placeholder="Enter title"
           ></b-form-input>
         </b-form-group>
@@ -18,6 +20,8 @@
             v-model="post.description"
             type="text"
             required
+            lazy-formatter
+            :formatter="formatter"
             placeholder="Enter description"
           ></b-form-input>
         </b-form-group>
@@ -37,6 +41,7 @@
         <div class="d-flex justify-content-center align-items-center">
           <b-button @click="onUpdate()" class="d-inline-block" variant="primary">Update</b-button>
         </div>
+        
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -87,6 +92,14 @@ export default {
       formData.set("description", this.post.description);
       this.updatePost(formData);
     },
+    formatter(value) {
+      const array = value.toLowerCase().split(" ")
+      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1)
+      const fullSentence = array.slice(1)
+      fullSentence.unshift(firstElement)
+      return fullSentence.join(" ")    
+
+      },
   },
 };
 </script>

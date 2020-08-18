@@ -29,6 +29,7 @@ const actions = {
       onLogout({ commit }) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
+        localStorage.removeItem("vuex");
         router.push("/");
         commit("ON_LOGOUT");
       },

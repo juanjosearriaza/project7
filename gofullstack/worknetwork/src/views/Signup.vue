@@ -136,9 +136,13 @@ export default {
       return $dirty ? !$error : null;
     },
     formatter(value) {
+      /*const array = value.toLowerCase().split(" ")
+      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1)
+      const fullSentence = array.slice(1)
+      fullSentence.unshift(firstElement)
+      return fullSentence.join(" ")*/     
 
       return value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ')
-      
       },
     async onSignup() {
       this.$v.form.$touch();

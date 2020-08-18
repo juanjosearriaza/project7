@@ -20,6 +20,10 @@ const Post = db.define("post", {
       key: 'id',
     },
   },
+  hasBeenRead: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  }
   
 });
 

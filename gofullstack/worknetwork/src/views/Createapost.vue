@@ -13,6 +13,8 @@
             v-model="title"
             type="text"
             required
+            lazy-formatter
+            :formatter="formatter"
             placeholder="Enter title"
           ></b-form-input>
         </b-form-group>
@@ -26,6 +28,8 @@
             v-model="description"
             type="text"
             required
+            lazy-formatter
+            :formatter="formatter"
             placeholder="Enter description"
           ></b-form-input>
         </b-form-group>
@@ -88,6 +92,14 @@ export default {
       this.addPost(fd);
       this.show = true;
     },
+    formatter(value) {
+      const array = value.toLowerCase().split(" ")
+      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1)
+      const fullSentence = array.slice(1)
+      fullSentence.unshift(firstElement)
+      return fullSentence.join(" ")    
+
+      },
   },
 };
 </script>
