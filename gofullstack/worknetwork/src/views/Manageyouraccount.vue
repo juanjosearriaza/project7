@@ -42,7 +42,8 @@ export default {
       return `Copyright ${currentYear}`;
     },
     user() {
-      const users = this.$store.getters.allUsers;
+      //const users = this.$store.getters.allUsers;
+      let users = JSON.parse(localStorage.users) || []
 
       return users.find((user) => localStorage.getItem("userId") == user.id) || {firstname: null, lastname: null};
     },

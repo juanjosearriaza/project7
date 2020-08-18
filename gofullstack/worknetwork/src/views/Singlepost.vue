@@ -46,9 +46,10 @@ export default {
     ...mapGetters(["allPosts"]),
 
     post() {
-      const posts = this.$store.getters.allPosts;
+      let posts = JSON.parse(localStorage.posts) || []
 
-      return posts.find((post) => this.postId == post.id);
+      return posts.find((post) => this.postId == post.id )
+      
     },
   },
   methods: {

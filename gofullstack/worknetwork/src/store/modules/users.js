@@ -11,8 +11,11 @@ const getters = {
 const actions = {
   async loadUsers({ commit }) {
     try {
-      const response = await axios.get("http://localhost:3000/api/users/");
-      commit("SET_USERS", response.data);
+      if(localStorage.getItem("token")) {
+        const response = await axios.get("http://localhost:3000/api/users/");
+        commit("SET_USERS", response.data);
+        localStorage.setItem("users", JSON.stringify(response.data))
+      }      
     } catch (err) {
       console.log(err);
     }
@@ -28,7 +31,6 @@ const actions = {
         }
       );
       commit("DELETE_USER", response.data);
-      localStorage.removeItem("vuex")
       dispatch("onLogout")
     } catch (err) {
       console.log(err);

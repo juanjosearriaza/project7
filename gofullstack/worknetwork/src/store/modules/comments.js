@@ -16,7 +16,9 @@ const actions = {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
       commit("ADD_COMMENT", response.data);
-      
+      /*let comments = JSON.parse(localStorage.getItem("comments"))
+      comments.unshift(response.data)
+      localStorage.setItem("comments", JSON.stringify(comments))*/
     } catch (err) {
       console.log(err);
     }
@@ -27,6 +29,7 @@ const actions = {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
       commit("LOAD_COMMENTS", response.data);
+      localStorage.setItem("comments", JSON.stringify(response.data))
     } catch (err) {
       console.log(err);
     }

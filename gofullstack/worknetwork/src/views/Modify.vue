@@ -41,7 +41,8 @@
         <div class="d-flex justify-content-center align-items-center">
           <b-button @click="onUpdate()" class="d-inline-block" variant="primary">Update</b-button>
         </div>
-        
+                <b-alert class="mt-3" :show="show">Post modified successfully!</b-alert>
+
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -59,6 +60,7 @@ export default {
     return {
       postId: this.$route.params.id,
       image: null,
+      show: false,
     };
   },
   computed: {
@@ -69,9 +71,10 @@ export default {
     },
 
     post() {
-      const posts = this.$store.getters.allPosts;
+      let posts = JSON.parse(localStorage.posts) || []
 
-      return posts.find((post) => this.postId == post.id);
+      return posts.find((post) => this.postId == post.id )
+      
     },
   },
 
@@ -91,6 +94,7 @@ export default {
       formData.set("title", this.post.title);
       formData.set("description", this.post.description);
       this.updatePost(formData);
+      this.show = true
     },
     formatter(value) {
       const array = value.toLowerCase().split(" ")
