@@ -45,8 +45,15 @@
           ></b-form-input>
         </b-form-group>
 
-        <p>Strong passwords need to have a letter, a number, a special character, and be more than 8 characters and less than 12 long.</p>
-        <b-form-group id="confirmPassword" label="Confirm Password:" label-for="confirmPassword">
+        <p>
+          Strong passwords need to have a letter, a number, a special character,
+          and be more than 8 characters and less than 12 long.
+        </p>
+        <b-form-group
+          id="confirmPassword"
+          label="Confirm Password:"
+          label-for="confirmPassword"
+        >
           <b-form-input
             id="confirmPassword"
             v-model="$v.form.confirmpassword.$model"
@@ -55,19 +62,22 @@
             required
             placeholder="Enter password"
           ></b-form-input>
-          <p
-            class="error"
-            v-if="!$v.form.confirmpassword.sameAsPassword"
-          >The passwords do not match.</p>
+          <p class="error" v-if="!$v.form.confirmpassword.sameAsPassword">
+            The passwords do not match.
+          </p>
         </b-form-group>
         <div class="d-flex justify-content-center align-items-center">
-          <b-button type="submit" class="d-inline-block" variant="primary">Sign up</b-button>
+          <b-button type="submit" class="d-inline-block" variant="primary"
+            >Sign up</b-button
+          >
           <p class="login">
             Already registered?
             <router-link to="/">Log in</router-link>
           </p>
         </div>
-        <b-alert class="mt-3" :show="show">You have successfully sign up, please log in now!</b-alert>
+        <b-alert class="mt-3" :show="show"
+          >You have successfully sign up, please log in now!</b-alert
+        >
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -136,26 +146,20 @@ export default {
       return $dirty ? !$error : null;
     },
     formatter(value) {
-      /*const array = value.toLowerCase().split(" ")
-      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1)
-      const fullSentence = array.slice(1)
-      fullSentence.unshift(firstElement)
-      return fullSentence.join(" ")*/     
-
-      return value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ')
-      },
+      return value
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+        .join(" ");
+    },
     async onSignup() {
       this.$v.form.$touch();
       try {
         if (this.$v.form.$anyError) {
           return;
         } else {
-          await axios.post(
-            "http://localhost:3000/api/auth/signup",
-            this.form
-          );
-          this.show = true
-          
+          await axios.post("http://localhost:3000/api/auth/signup", this.form);
+          this.show = true;
         }
       } catch (err) {
         console.log(err);

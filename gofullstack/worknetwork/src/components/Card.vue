@@ -11,8 +11,17 @@
     <div class="card-body">
       <h5 class="card-title text-left">{{ title }}</h5>
       <p class="card-text text-left">{{ description }}</p>
-      <b-button v-if="!showPost" @click="onSeePost" pill variant="primary">See Post</b-button>
-      <div v-if="showPost">
+
+      <span
+        v-if="
+          hasBeenRead && !hasBeenRead.includes(userLoggedIn) && this.showPost
+        "
+      >
+        <b-button @click="onSeePost" pill variant="primary"
+          >See Post</b-button
+        ></span
+      >
+      <div v-else>
         <router-link :to="{ name: 'Singlepost', params: { id } }">
           <b-card-img
             v-if="image"
@@ -58,7 +67,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Comment from "../components/Comment";
-var moment = require('moment'); 
+var moment = require("moment");
 
 export default {
   name: "Card",
@@ -75,45 +84,65 @@ export default {
   data() {
     return {
       comment: "",
+      userLoggedIn: localStorage.getItem("userId"),
       show: false,
-      showPost: this.hasBeenRead,
+      showPost: true,
     };
   },
   computed: {
     ...mapGetters(["allComments"]),
-
     postId() {
-      const posts = this.$store.getters.allPosts;
+      try {
+        const posts = this.$store.getters.allPosts;
 
-      return posts.find((post) => this.id == post.id).id;
+        return posts.find((post) => this.id == post.id).id;
+      } catch (err) {
+        return err;
+      }
     },
     user() {
-      const users = this.$store.getters.allUsers;
+      try {
+        const users = this.$store.getters.allUsers;
 
-      return (
-        users.find((user) => this.userId == user.id) || {
-          firstname: null,
-          lastname: null,
-        }
-      );
+        return (
+          users.find((user) => this.userId == user.id) || {
+            firstname: null,
+            lastname: null,
+          }
+        );
+      } catch (err) {
+        return err;
+      }
     },
     rightComment() {
-      const comments = this.$store.getters.allComments;
+      try {
+        const comments = this.$store.getters.allComments;
 
-      return comments.filter((comment) => this.id == comment.postId);
+        return comments.filter((comment) => this.id == comment.postId);
+      } catch (err) {
+        return err;
+      }
     },
     time() {
-      const posted = moment(this.createdAt)
+      try {
+        const posted = moment(this.createdAt);
 
-      return posted.fromNow()
-    }
+        return posted.fromNow();
+      } catch (err) {
+        return err;
+      }
+    },
   },
   methods: {
-    ...mapActions(["addComment", "loadComments"]),
+    ...mapActions(["addComment", "loadComments", "viewPost"]),
 
     onSendComment() {
-      this.addComment({ comment: this.comment, postId: this.postId });
-      this.comment = "";
+      try {
+        this.addComment({ comment: this.comment, postId: this.postId });
+        this.comment = "";
+      } catch (err) {
+        return err;
+      }
     },
 
     onShowComments() {
@@ -121,7 +150,13 @@ export default {
     },
 
     onSeePost() {
-      this.showPost = true;
+      try {
+        (this.showPost = false),
+          this.viewPost({ id: this.postId, hasBeenRead: this.userLoggedIn });
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
     },
   },
 };
@@ -147,7 +182,7 @@ svg {
   display: flex;
   margin: auto 3px;
 }
-.badge{
+.badge {
   font-size: 11px;
 }
 </style>

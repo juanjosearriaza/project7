@@ -8,6 +8,7 @@
         enctype="multipart/form-data"
       >
         <b-form-group id="title" label="Title:" label-for="title">
+          
           <b-form-input
             id="title"
             v-model="title"
@@ -46,7 +47,12 @@
             >Submit</b-button
           >
         </div>
-        <b-alert class="mt-3" :show="show">Post created successfully!</b-alert>
+        <b-alert class="mt-3" :show="showSuccess"
+          >Post created successfully!</b-alert
+        >
+        <b-alert class="mt-3" variant="danger" :show="showDanger"
+          >Something went wrong, please try again!</b-alert
+        >
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -66,10 +72,14 @@ export default {
       title: "",
       description: "",
       image: null,
-      show: false,
+      hasBeenRead: [localStorage.getItem("userId")],
+      showSuccess: null,
+      showDanger: null,
     };
   },
   computed: {
+   
+
     copyright() {
       const currentYear = new Date().getFullYear();
 
@@ -82,24 +92,32 @@ export default {
     onFileSelected(event) {
       this.image = event.target.files[0];
     },
-    
+
     onUpload(e) {
-      e.preventDefault();
-      const fd = new FormData();
-      fd.append("image", this.image);
-      fd.append("title", this.title);
-      fd.append("description", this.description);
-      this.addPost(fd);
-      this.show = true;
+      try {
+        e.preventDefault();
+        const fd = new FormData();
+        fd.append("image", this.image);
+        fd.append("title", this.title);
+        fd.append("description", this.description);
+        fd.append("hasBeenRead", this.hasBeenRead);
+
+        this.addPost(fd)
+
+        
+        
+        
+      } catch (err) {
+        return err;
+      }
     },
     formatter(value) {
-      const array = value.toLowerCase().split(" ")
-      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1)
-      const fullSentence = array.slice(1)
-      fullSentence.unshift(firstElement)
-      return fullSentence.join(" ")    
-
-      },
+      const array = value.toLowerCase().split(" ");
+      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1);
+      const fullSentence = array.slice(1);
+      fullSentence.unshift(firstElement);
+      return fullSentence.join(" ");
+    },
   },
 };
 </script>

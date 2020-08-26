@@ -14,7 +14,11 @@
             placeholder="Enter title"
           ></b-form-input>
         </b-form-group>
-        <b-form-group id="description" label="Description:" label-for="description">
+        <b-form-group
+          id="description"
+          label="Description:"
+          label-for="description"
+        >
           <b-form-input
             id="description"
             v-model="post.description"
@@ -26,10 +30,21 @@
           ></b-form-input>
         </b-form-group>
         <div id="preview">
-          <b-card-img v-if="image" :src="image" alt="Image" class="rounded-0" style="width:100%"></b-card-img>
-          <b-card-img v-else :src="post.image" alt="Image" class="rounded-0" style="width:100%"></b-card-img>
+          <b-card-img
+            v-if="image"
+            :src="image"
+            alt="Image"
+            class="rounded-0"
+            style="width:100%"
+          ></b-card-img>
+          <b-card-img
+            v-else
+            :src="post.image"
+            alt="Image"
+            class="rounded-0"
+            style="width:100%"
+          ></b-card-img>
         </div>
-
 
         <b-form-group class="mt-3" id="file" label="Image:" label-for="file">
           <b-form-file
@@ -39,10 +54,11 @@
           ></b-form-file>
         </b-form-group>
         <div class="d-flex justify-content-center align-items-center">
-          <b-button @click="onUpdate()" class="d-inline-block" variant="primary">Update</b-button>
+          <b-button @click="onUpdate()" class="d-inline-block" variant="primary"
+            >Update</b-button
+          >
         </div>
-                <b-alert class="mt-3" :show="show">Post modified successfully!</b-alert>
-
+        <b-alert class="mt-3" :show="show">Post modified successfully!</b-alert>
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -71,10 +87,13 @@ export default {
     },
 
     post() {
-      let posts = JSON.parse(localStorage.posts) || []
+      try {
+        let posts = JSON.parse(localStorage.posts) || [];
 
-      return posts.find((post) => this.postId == post.id )
-      
+        return posts.find((post) => this.postId == post.id);
+      } catch (err) {
+        return err;
+      }
     },
   },
 
@@ -82,28 +101,40 @@ export default {
     ...mapActions(["updatePost"]),
 
     onFileSelected(event) {
-      let file = event.target.files[0];
-      this.post.image = file;
-      this.image = URL.createObjectURL(file);
+      try {
+        let file = event.target.files[0];
+        this.post.image = file;
+        this.image = URL.createObjectURL(file);
+      } catch (err) {
+        return err;
+      }
     },
 
     onUpdate() {
-      const formData = new FormData();
-      formData.set("id", this.post.id);
-      formData.append("image", this.post.image);
-      formData.set("title", this.post.title);
-      formData.set("description", this.post.description);
-      this.updatePost(formData);
-      this.show = true
+      try {
+        const formData = new FormData();
+        formData.set("id", this.post.id);
+        formData.append("image", this.post.image);
+        formData.set("title", this.post.title);
+        formData.set("description", this.post.description);
+        this.updatePost(formData);
+        this.show = true;
+      } catch (err) {
+        return err;
+      }
     },
     formatter(value) {
-      const array = value.toLowerCase().split(" ")
-      const firstElement = array[0].charAt(0).toUpperCase() + array[0].slice(1)
-      const fullSentence = array.slice(1)
-      fullSentence.unshift(firstElement)
-      return fullSentence.join(" ")    
-
-      },
+      try {
+        const array = value.toLowerCase().split(" ");
+        const firstElement =
+          array[0].charAt(0).toUpperCase() + array[0].slice(1);
+        const fullSentence = array.slice(1);
+        fullSentence.unshift(firstElement);
+        return fullSentence.join(" ");
+      } catch (err) {
+        return err;
+      }
+    },
   },
 };
 </script>

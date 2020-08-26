@@ -29,10 +29,7 @@ const actions = {
       const response = await axios.post("http://localhost:3000/api/posts/", fd, { headers: {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
-      commit("ADD_POST", response.data);
-      /*let posts = JSON.parse(localStorage.getItem("posts"))
-      posts.unshift(response.data)
-      localStorage.setItem("posts", JSON.stringify(posts))*/
+      commit("ADD_POST", response.data);    
       
     } catch (err) {
       console.log(err);
@@ -44,10 +41,7 @@ const actions = {
         `http://localhost:3000/api/posts/${id}`, { headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }});      
-      commit("DELETE_POST", id);
-      /*let posts = JSON.parse(localStorage.getItem("posts"));
-      posts.filter((post) => post.id !== id)
-      localStorage.setItem("posts", JSON.stringify(posts))*/
+      commit("DELETE_POST", id);     
       router.push("/home");
     } catch (err) {
       console.log(err);
@@ -59,14 +53,19 @@ const actions = {
         `http://localhost:3000/api/posts/${formData.get("id")}`, formData, { headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }});
-      commit("UPDATE_POST", response.data);
-      /*let posts = JSON.parse(localStorage.getItem("posts"));
-      const index = posts.findIndex((post) => post.id === formData.get("id"));
-
-      if (index !== -1) {
-        posts.splice(index, 1, formData);
-      }
-      localStorage.setItem("posts", JSON.stringify(posts))*/
+      commit("UPDATE_POST", response.data);      
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async viewPost({ commit }, data) {
+    console.log(data)
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/posts/${data.id}/view-post`, data, { headers: {
+          authorization: "Bearer " + localStorage.getItem("token")
+        }});
+      commit("UPDATE_POST", response.data);      
     } catch (err) {
       console.log(err);
     }
@@ -84,7 +83,7 @@ const mutations = {
     if (index !== -1) {
       state.posts.splice(index, 1, updatedPost);
     }
-  },
+  },  
 };
 
 export default {

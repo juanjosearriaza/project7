@@ -20,11 +20,8 @@
               :createdAt="post.createdAt"
               :hasBeenRead="post.hasBeenRead"
               :key="post.id"
-              
             ></Card>
-            
           </b-row>
-          
         </div>
 
         <b-col class="d-none d-sm-block" md="3">
@@ -49,14 +46,12 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: { Sidemenu, Card, Footer },
- 
+
   mounted() {
     this.loadPosts(), this.loadUsers(), this.loadComments();
   },
   methods: {
     ...mapActions(["loadPosts", "loadUsers", "loadComments"]),
-
-    
   },
 
   computed: {
@@ -68,14 +63,17 @@ export default {
       return `Copyright ${currentYear}`;
     },
     user() {
-      const users = this.$store.getters.allUsers;
-
-      return (
-        users.find((user) => localStorage.getItem("userId") == user.id) || {
-          firstname: null,
-          lastname: null,
-        }
-      );
+      try {
+        const users = this.$store.getters.allUsers;
+        return (
+          users.find((user) => localStorage.getItem("userId") == user.id) || {
+            firstname: null,
+            lastname: null,
+          }
+        );
+      } catch (err) {
+        return err;
+      }
     },
   },
 };

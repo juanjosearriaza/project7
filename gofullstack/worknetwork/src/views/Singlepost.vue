@@ -46,36 +46,43 @@ export default {
     ...mapGetters(["allPosts"]),
 
     post() {
-      let posts = JSON.parse(localStorage.posts) || []
+      try {
+        let posts = JSON.parse(localStorage.posts) || [];
 
-      return posts.find((post) => this.postId == post.id )
-      
+        return posts.find((post) => this.postId == post.id);
+      } catch (err) {
+        return err;
+      }
     },
   },
   methods: {
     ...mapActions(["deletePost"]),
 
     onDelete() {
-      this.$swal
-        .fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        })
-        .then((result) => {
-          if (result.value) {
-            this.$swal.fire(
-              "Deleted!",
-              "Your file has been deleted.",
-              "success",
-              this.deletePost(this.postId)
-            );
-          }
-        });
+      try {
+        this.$swal
+          .fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          })
+          .then((result) => {
+            if (result.value) {
+              this.$swal.fire(
+                "Deleted!",
+                "Your file has been deleted.",
+                "success",
+                this.deletePost(this.postId)
+              );
+            }
+          });
+      } catch (err) {
+        return err;
+      }
     },
   },
 };

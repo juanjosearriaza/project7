@@ -6,16 +6,14 @@ l.<template>
         alt="logo groupomania"
         style="height:50px;widht:50px;"
       />
-      <!--<b-navbar-toggle target="vet-nav-collapse"></b-navbar-toggle>-->
-      <b-dropdown
-        id="dropdown-left"
-        text="Menu"  
-        variant="light"
-        class="m-2"
-      >
-      <b-dropdown-item href="#">{{ user.firstname }}</b-dropdown-item>
-      <b-dropdown-item href="#">{{ user.lastname }}</b-dropdown-item>
-        <b-dropdown-item href="#"><router-link to="/createapost">Create a Post</router-link></b-dropdown-item>
+      <b-dropdown id="dropdown-left" text="Menu" variant="light" class="m-2">
+        <b-dropdown-item href="#">{{ user.firstname }}</b-dropdown-item>
+        <b-dropdown-item href="#">{{ user.lastname }}</b-dropdown-item>
+        <b-dropdown-item href="#"
+          ><router-link to="/createapost"
+            >Create a Post</router-link
+          ></b-dropdown-item
+        >
         <b-dropdown-item href="#">Events</b-dropdown-item>
         <b-dropdown-item href="#">Jobs</b-dropdown-item>
         <b-dropdown-item href="#">Wishlist</b-dropdown-item>
@@ -72,7 +70,6 @@ l.<template>
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  
   methods: {
     ...mapActions(["onLogout"]),
   },
@@ -80,14 +77,18 @@ export default {
     ...mapGetters(["isAuthenticated"]),
 
     user() {
-      const users = this.$store.getters.allUsers;
+      try {
+        const users = this.$store.getters.allUsers;
 
-      return (
-        users.find((user) => localStorage.getItem("userId") == user.id) || {
-          firstname: null,
-          lastname: null,
-        }
-      );
+        return (
+          users.find((user) => localStorage.getItem("userId") == user.id) || {
+            firstname: null,
+            lastname: null,
+          }
+        );
+      } catch (err) {
+        return err;
+      }
     },
   },
 };
@@ -116,26 +117,25 @@ body {
   }
 }
 
-
-@media all and (min-width: 768px)  {
+@media all and (min-width: 768px) {
   #dropdown-left {
-    display: none
+    display: none;
   }
-.form-inline {
+  .form-inline {
     display: inline;
   }
- }
+}
 
 @media all and (max-width: 480px) {
   .form-inline {
     display: inline;
   }
- }
+}
 
- @media screen and (orientation:landscape) {
-   .form-inline {
+@media screen and (orientation: landscape) {
+  .form-inline {
     display: inline;
     margin-bottom: 10px;
   }
- }
+}
 </style>

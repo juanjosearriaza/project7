@@ -7,38 +7,43 @@
         <div class="card-text text-left">{{ comment }}</div>
       </div>
     </b-list-group-item>
-    <p>Posted {{ time }} </p>
+    <p>Posted {{ time }}</p>
   </div>
 </template>
 
 <script>
-
-var moment = require('moment'); 
+var moment = require("moment");
 
 export default {
   name: "Comment",
   props: ["id", "comment", "userId", "postId", "createdAt"],
   computed: {
     user() {
-      const users = this.$store.getters.allUsers;
+      try {
+        const users = this.$store.getters.allUsers;
 
-      return (
-        users.find((user) => this.userId == user.id) || {
-          firstname: null,
-          lastname: null,
-        }
-      );
+        return (
+          users.find((user) => this.userId == user.id) || {
+            firstname: null,
+            lastname: null,
+          }
+        );
+      } catch (err) {
+        return err;
+      }
     },
 
     time() {
-      const posted = moment(this.createdAt)
+      try {
+        const posted = moment(this.createdAt);
 
-      return posted.fromNow()
-    }
+        return posted.fromNow();
+      } catch (err) {
+        return err;
+      }
+    },
   },
 };
-
-
 </script>
 
 <style scoped>
@@ -57,12 +62,12 @@ h6 {
   font-weight: bolder;
 }
 .list-group-item {
-   border-style: none !important;
+  border-style: none !important;
 }
 p {
-    text-align: left;
-    margin-left: 65px;
-    font-size: 12px;
-    margin-top: -3px;
+  text-align: left;
+  margin-left: 65px;
+  font-size: 12px;
+  margin-top: -3px;
 }
 </style>

@@ -1,7 +1,6 @@
 const db = require("../config/database");
 const { Sequelize, DataTypes } = require("sequelize");
-const User = require("./Users")
-
+const User = require("./Users");
 
 const Post = db.define("post", {
   title: {
@@ -17,18 +16,16 @@ const Post = db.define("post", {
     type: DataTypes.INTEGER,
     references: {
       model: User,
-      key: 'id',
+      key: "id",
     },
   },
   hasBeenRead: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
+    type: DataTypes.ARRAY(DataTypes.STRING),  
+      
   }
-  
 });
 
-User.hasMany(Post)
-Post.belongsTo(User)
-
+User.hasMany(Post);
+Post.belongsTo(User);
 
 module.exports = Post;

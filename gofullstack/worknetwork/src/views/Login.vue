@@ -26,13 +26,19 @@
           ></b-form-input>
         </b-form-group>
         <div class="d-flex justify-content-center align-items-center">
-          <b-button @click="onCheckLogin" class="d-inline-block" variant="primary"
+          <b-button
+            @click="onCheckLogin"
+            class="d-inline-block"
+            variant="primary"
             >Log in</b-button
           >
 
           <router-link to="/login">Forgot Password?</router-link>
         </div>
-        <b-alert variant="danger" class="mt-3" :show="show">Incorrect combination of email and password, please try again.</b-alert>
+        <b-alert variant="danger" class="mt-3" :show="show"
+          >Incorrect combination of email and password, please try
+          again.</b-alert
+        >
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -43,7 +49,6 @@
 import Footer from "../components/Footer";
 //import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
-
 
 export default {
   name: "Login",
@@ -60,7 +65,6 @@ export default {
   computed: {
     ...mapGetters(["isAuthenticated"]),
 
-
     copyright() {
       const currentYear = new Date().getFullYear();
 
@@ -68,21 +72,19 @@ export default {
     },
   },
   methods: {
-
-
     ...mapActions(["onLogin"]),
 
     onCheckLogin() {
-      this.onLogin(this.form)
+      try {
+        this.onLogin(this.form);
 
-      if(!localStorage.getItem("userId")) {
-        this.show = true
-      } 
-    }
-
-        
-
-    
+        if (!localStorage.getItem("userId")) {
+          this.show = true;
+        }
+      } catch (err) {
+        return err;
+      }
+    },
   },
 };
 </script>
