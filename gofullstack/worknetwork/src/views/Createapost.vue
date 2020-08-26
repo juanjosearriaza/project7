@@ -8,7 +8,6 @@
         enctype="multipart/form-data"
       >
         <b-form-group id="title" label="Title:" label-for="title">
-          
           <b-form-input
             id="title"
             v-model="title"
@@ -47,12 +46,6 @@
             >Submit</b-button
           >
         </div>
-        <b-alert class="mt-3" :show="showSuccess"
-          >Post created successfully!</b-alert
-        >
-        <b-alert class="mt-3" variant="danger" :show="showDanger"
-          >Something went wrong, please try again!</b-alert
-        >
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -62,7 +55,7 @@
 <script>
 import Footer from "../components/Footer";
 //import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CreateaPost",
@@ -73,12 +66,10 @@ export default {
       description: "",
       image: null,
       hasBeenRead: [localStorage.getItem("userId")],
-      showSuccess: null,
-      showDanger: null,
     };
   },
   computed: {
-   
+    ...mapGetters(["addPostStatus"]),
 
     copyright() {
       const currentYear = new Date().getFullYear();
@@ -102,11 +93,22 @@ export default {
         fd.append("description", this.description);
         fd.append("hasBeenRead", this.hasBeenRead);
 
-        this.addPost(fd)
-
-        
-        
-        
+        this.addPost(fd).then(() => {
+          if (this.addPostStatus == true) {
+            this.$swal.fire({
+              icon: "success",
+              title: "Your post has been created!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            this.$swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          }
+        });
       } catch (err) {
         return err;
       }

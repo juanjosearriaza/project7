@@ -1,4 +1,4 @@
-l.<template>
+<template>
   <div id="nav">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <img
@@ -98,13 +98,13 @@ export default {
 body {
   background-color: #f2f3f5 !important;
 }
-#app {
+/*#app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
+}*/
 #nav {
   a {
     color: #212529;

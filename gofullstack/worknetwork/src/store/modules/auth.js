@@ -4,11 +4,14 @@ import router from "../../router"
 
 
 const state = {
-  token: localStorage.getItem("token") || ""
+  token: localStorage.getItem("token") || "",
+  isLoggedIn: null,
 };
 
 const getters = {
-    isAuthenticated: state => !!state.token
+    isAuthenticated: state => !!state.token,
+    isLoggedIn: state => state.isLoggedIn
+    
 };
 
 const actions = {
@@ -19,11 +22,13 @@ const actions = {
             form, 
           );
           commit("ON_LOGIN", response.data.token);
+          commit("ON_USER_LOGGED_IN", true)
           localStorage.setItem("token", response.data.token)
           localStorage.setItem("userId", response.data.userId)
           router.push("/home");
         } catch (err) {
           console.log(err);
+          commit("ON_USER_LOGGED_IN", false)
         }
       },
       onLogout({ commit }) {
@@ -37,7 +42,8 @@ const actions = {
 
 const mutations = {
     ON_LOGIN: (state, token) => (state.token = token),
-    ON_LOGOUT: (state) => (state.token = "")
+    ON_LOGOUT: (state) => (state.token = ""),
+    ON_USER_LOGGED_IN: (state, boolean) => (state.isLoggedIn = boolean)
 
 };
 

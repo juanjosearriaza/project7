@@ -35,10 +35,6 @@
 
           <router-link to="/login">Forgot Password?</router-link>
         </div>
-        <b-alert variant="danger" class="mt-3" :show="show"
-          >Incorrect combination of email and password, please try
-          again.</b-alert
-        >
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -47,7 +43,6 @@
 
 <script>
 import Footer from "../components/Footer";
-//import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -59,11 +54,10 @@ export default {
         email: "",
         password: "",
       },
-      show: false,
     };
   },
   computed: {
-    ...mapGetters(["isAuthenticated"]),
+    ...mapGetters(["isAuthenticated", "isLoggedIn"]),
 
     copyright() {
       const currentYear = new Date().getFullYear();
@@ -76,11 +70,16 @@ export default {
 
     onCheckLogin() {
       try {
-        this.onLogin(this.form);
-
-        if (!localStorage.getItem("userId")) {
-          this.show = true;
-        }
+        this.onLogin(this.form).then(() => {
+          if (this.isLoggedIn == false) {
+            this.$swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text:
+                "Incorrect combination of email and password, please try again!",
+            });
+          }
+        });
       } catch (err) {
         return err;
       }

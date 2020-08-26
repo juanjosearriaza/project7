@@ -58,7 +58,6 @@
             >Update</b-button
           >
         </div>
-        <b-alert class="mt-3" :show="show">Post modified successfully!</b-alert>
       </b-form>
     </b-card>
     <Footer class="mt-4" :copyright="copyright"></Footer>
@@ -67,7 +66,7 @@
 
 <script>
 import Footer from "../components/Footer";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "ModifyaPost",
@@ -76,10 +75,11 @@ export default {
     return {
       postId: this.$route.params.id,
       image: null,
-      show: false,
     };
   },
   computed: {
+    ...mapGetters(["updatePostStatus"]),
+
     copyright() {
       const currentYear = new Date().getFullYear();
 
@@ -117,8 +117,22 @@ export default {
         formData.append("image", this.post.image);
         formData.set("title", this.post.title);
         formData.set("description", this.post.description);
-        this.updatePost(formData);
-        this.show = true;
+        this.updatePost(formData).then(() => {
+          if (this.updatePostStatus == true) {
+            this.$swal.fire({
+              icon: "success",
+              title: "Your post has been updated!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            this.$swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          }
+        });
       } catch (err) {
         return err;
       }

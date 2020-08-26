@@ -138,8 +138,10 @@ export default {
 
     onSendComment() {
       try {
-        this.addComment({ comment: this.comment, postId: this.postId });
-        this.comment = "";
+        if (this.comment !== "") {
+          this.addComment({ comment: this.comment, postId: this.postId });
+          this.comment = "";
+        }
       } catch (err) {
         return err;
       }

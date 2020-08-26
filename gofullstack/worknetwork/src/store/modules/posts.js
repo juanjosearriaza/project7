@@ -1,12 +1,17 @@
 import axios from "axios";
 import router from "../../router"
 
+
 const state = {
   posts: [],
+  addPostStatus: null,
+  updatePostStatus: null,
 };
 
 const getters = {
   allPosts: (state) => state.posts,
+  addPostStatus: (state) => state.addPostStatus,
+  updatePostStatus: (state) => state.updatePostStatus,
 };
 
 const actions = {
@@ -29,10 +34,13 @@ const actions = {
       const response = await axios.post("http://localhost:3000/api/posts/", fd, { headers: {
         authorization: "Bearer " + localStorage.getItem("token")
       }});
-      commit("ADD_POST", response.data);    
+      commit("ADD_POST", response.data);
+      commit("ADD_POST_STATUS", true) 
+      
       
     } catch (err) {
       console.log(err);
+      commit("ADD_POST_STATUS", false)
     }
   },
   async deletePost({ commit }, id) {
@@ -54,8 +62,12 @@ const actions = {
           authorization: "Bearer " + localStorage.getItem("token")
         }});
       commit("UPDATE_POST", response.data);      
+      commit("UPDATE_POST_STATUS", true);      
+
     } catch (err) {
       console.log(err);
+      commit("UPDATE_POST_STATUS", false);      
+
     }
   },
   async viewPost({ commit }, data) {
@@ -83,7 +95,9 @@ const mutations = {
     if (index !== -1) {
       state.posts.splice(index, 1, updatedPost);
     }
-  },  
+  }, 
+  ADD_POST_STATUS: (state, boolean) => (state.addPostStatus = boolean),
+  UPDATE_POST_STATUS: (state, boolean) => (state.updatePostStatus = boolean) 
 };
 
 export default {
