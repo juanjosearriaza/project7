@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar class="container-fluid" toggleable="lg" type="dark" variant="info">
       <img
         src="../assets/icon.png"
         alt="logo groupomania"
@@ -98,13 +98,7 @@ export default {
 body {
   background-color: #f2f3f5 !important;
 }
-/*#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}*/
+
 #nav {
   a {
     color: #212529;

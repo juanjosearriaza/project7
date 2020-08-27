@@ -25,9 +25,9 @@
         </div>
 
         <b-col class="d-none d-sm-block" md="3">
-          <img
+          <img class="logo"
             src="../assets/icon-above-font.png"
-            style="height:300px;widht:300px"
+            style="height:300px; width: 280px"
           />
         </b-col>
       </b-row>
@@ -86,5 +86,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: #f2f3f5;
+}
+@media screen and (min-device-width: 481px) and (orientation:portrait) {
+  .logo {
+    width: 180px!important;
+  }
 }
 </style>

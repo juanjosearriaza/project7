@@ -1,5 +1,5 @@
 <template>
-  <b-col cols="0" md="3" style="background-color:#F2F3F5!important">
+  <b-col class="d-none d-sm-block" md="3" style="background-color:#F2F3F5!important">
     <b-navbar vertical toggleable="lg" type="light" variant="light">
       <div>
         <b-nav vertical class="text-left">
@@ -30,6 +30,7 @@ export default {
   .flex-column {
     display: none;
   }
+ 
 }
 @media screen and (orientation: landscape) and (max-width: 740px) {
   .flex-column {
