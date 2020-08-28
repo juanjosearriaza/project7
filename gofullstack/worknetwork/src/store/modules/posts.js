@@ -71,10 +71,31 @@ const actions = {
     }
   },
   async viewPost({ commit }, data) {
-    console.log(data)
     try {
       const response = await axios.put(
         `http://localhost:3000/api/posts/${data.id}/view-post`, data, { headers: {
+          authorization: "Bearer " + localStorage.getItem("token")
+        }});
+      commit("UPDATE_POST", response.data);      
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async onUserLiked({ commit }, data) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/posts/${data.id}/userLiked`, data, { headers: {
+          authorization: "Bearer " + localStorage.getItem("token")
+        }});
+      commit("UPDATE_POST", response.data);      
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async onUserDisliked({ commit }, data) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/posts/${data.id}/userDisliked`, data, { headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }});
       commit("UPDATE_POST", response.data);      

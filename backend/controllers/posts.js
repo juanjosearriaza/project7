@@ -69,6 +69,8 @@ exports.createPost = async (req, res) => {
     description: req.body.description,
     image: url + "/images/" + req.file.filename,
     hasBeenRead: [req.body.hasBeenRead],
+    userLiked: [],
+    userDisliked: [],
   });
   post.userId = req.userId;
 
@@ -97,10 +99,8 @@ exports.deletePost = async (req, res) => {
 };
 
 exports.viewPost = async (req, res) => {
-  console.log(req.body);
-
   try {
-    Post.update(
+    await Post.update(
       {
         hasBeenRead: sequelize.fn(
           "array_append",
@@ -110,8 +110,111 @@ exports.viewPost = async (req, res) => {
       },
       { where: { id: req.params.id } }
     );
+    let post = await Post.findOne({ where: { id: req.params.id } });
+    console.log(post);
+    res.status(201).json(post);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err.message });
+  }
+};
 
-    res.status(201).json(Post);
+exports.userLiked = async (req, res) => {
+  let post = await Post.findOne({ where: { id: req.params.id } });
+
+  try {
+    if (post.userLiked.includes(req.body.userLiked)) {
+      await Post.update(
+        {
+          userLiked: sequelize.fn(
+            "array_remove",
+            sequelize.col("userLiked"),
+            req.body.userLiked
+          ),
+        },
+        { where: { id: req.params.id } }
+      );
+      let post = await Post.findOne({ where: { id: req.params.id } });
+      res.status(201).json(post);
+    } else if (post.userDisliked.includes(req.body.userLiked)) {
+      await Post.update(
+        {
+          userDisliked: sequelize.fn(
+            "array_remove",
+            sequelize.col("userDisliked"),
+            req.body.userLiked
+          ),
+        },
+        { where: { id: req.params.id } }
+      );
+      let post = await Post.findOne({ where: { id: req.params.id } });
+      res.status(201).json(post);
+    } else {
+      Post.update(
+        {
+          userLiked: sequelize.fn(
+            "array_append",
+            sequelize.col("userLiked"),
+            req.body.userLiked
+          ),
+        },
+        { where: { id: req.params.id } }
+      );
+
+      let post = await Post.findOne({ where: { id: req.params.id } });
+      res.status(201).json(post);
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.userDisliked = async (req, res) => {
+  let post = await Post.findOne({ where: { id: req.params.id } });
+
+  try {
+    if (post.userDisliked.includes(req.body.userDisliked)) {
+      await Post.update(
+        {
+          userDisliked: sequelize.fn(
+            "array_remove",
+            sequelize.col("userDisliked"),
+            req.body.userDisliked
+          ),
+        },
+        { where: { id: req.params.id } }
+      );
+      let post = await Post.findOne({ where: { id: req.params.id } });
+      res.status(201).json(post);
+    } else if (post.userLiked.includes(req.body.userDisliked)) {
+      await Post.update(
+        {
+          userLiked: sequelize.fn(
+            "array_remove",
+            sequelize.col("userLiked"),
+            req.body.userDisliked
+          ),
+        },
+        { where: { id: req.params.id } }
+      );
+      let post = await Post.findOne({ where: { id: req.params.id } });
+      res.status(201).json(post);
+    } else {
+      Post.update(
+        {
+          userDisliked: sequelize.fn(
+            "array_append",
+            sequelize.col("userDisliked"),
+            req.body.userDisliked
+          ),
+        },
+        { where: { id: req.params.id } }
+      );
+
+      let post = await Post.findOne({ where: { id: req.params.id } });
+      res.status(201).json(post);
+    }
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.message });

@@ -19,13 +19,16 @@
               :image="post.image"
               :createdAt="post.createdAt"
               :hasBeenRead="post.hasBeenRead"
+              :userLiked="post.userLiked"
+              :userDisliked="post.userDisliked"
               :key="post.id"
             ></Card>
           </b-row>
         </div>
 
         <b-col class="d-none d-sm-block" md="3">
-          <img class="logo"
+          <img
+            class="logo"
             src="../assets/icon-above-font.png"
             style="height:300px; width: 280px"
           />
@@ -87,9 +90,22 @@ export default {
   text-align: center;
   background-color: #f2f3f5;
 }
-@media screen and (min-device-width: 481px) and (orientation:portrait) {
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
   .logo {
-    width: 180px!important;
+    width: 180px !important;
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .logo {
+    width: 180px !important;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .logo {
+    width: 180px !important;
   }
 }
 </style>

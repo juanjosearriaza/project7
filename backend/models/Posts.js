@@ -20,9 +20,14 @@ const Post = db.define("post", {
     },
   },
   hasBeenRead: {
-    type: DataTypes.ARRAY(DataTypes.STRING),  
-      
-  }
+    type: DataTypes.ARRAY(DataTypes.STRING),      
+  },
+  userLiked: {
+    type: DataTypes.ARRAY(DataTypes.STRING),      
+  },
+  userDisliked: {
+    type: DataTypes.ARRAY(DataTypes.STRING),      
+  },
 });
 
 User.hasMany(Post);

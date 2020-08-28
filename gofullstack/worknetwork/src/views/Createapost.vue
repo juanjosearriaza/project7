@@ -66,6 +66,7 @@ export default {
       description: "",
       image: null,
       hasBeenRead: [localStorage.getItem("userId")],
+     
     };
   },
   computed: {
@@ -92,6 +93,7 @@ export default {
         fd.append("title", this.title);
         fd.append("description", this.description);
         fd.append("hasBeenRead", this.hasBeenRead);
+       
 
         this.addPost(fd).then(() => {
           if (this.addPostStatus == true) {

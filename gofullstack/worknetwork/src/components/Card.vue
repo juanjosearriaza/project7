@@ -32,6 +32,8 @@
           ></b-card-img>
         </router-link>
         <div class="footer">
+          <a @click="onLiked" href="#">{{ likesLenght }}<i class="far fa-thumbs-up"></i></a>
+          <a @click="onDisliked" href="#">{{ dislikesLenght }}<i class="far fa-thumbs-down"></i></a>
           <b-form method="post">
             <b-form-input
               v-model="comment"
@@ -79,6 +81,8 @@ export default {
     "userId",
     "createdAt",
     "hasBeenRead",
+    "userLiked",
+    "userDisliked"
   ],
   components: { Comment },
   data() {
@@ -96,6 +100,24 @@ export default {
         const posts = this.$store.getters.allPosts;
 
         return posts.find((post) => this.id == post.id).id;
+      } catch (err) {
+        return err;
+      }
+    },
+    likesLenght() {
+      try {
+        const posts = this.$store.getters.allPosts;
+
+        return posts.find((post) => this.id == post.id).userLiked.length;
+      } catch (err) {
+        return err;
+      }
+    },
+    dislikesLenght() {
+      try {
+        const posts = this.$store.getters.allPosts;
+
+        return posts.find((post) => this.id == post.id).userDisliked.length;
       } catch (err) {
         return err;
       }
@@ -134,7 +156,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["addComment", "loadComments", "viewPost"]),
+    ...mapActions(["addComment", "loadComments", "viewPost", "onUserLiked", "onUserDisliked"]),
 
     onSendComment() {
       try {
@@ -160,6 +182,12 @@ export default {
         return err;
       }
     },
+    onLiked() {
+      this.onUserLiked({ id: this.postId, userLiked: this.userLoggedIn });
+    },
+    onDisliked() {
+      this.onUserDisliked({ id: this.postId, userDisliked: this.userLoggedIn });
+    }
   },
 };
 </script>
@@ -186,5 +214,9 @@ svg {
 }
 .badge {
   font-size: 11px;
+}
+a {
+  text-decoration: none!important;
+  color:#007bff;
 }
 </style>
