@@ -8,7 +8,7 @@
           :lastname="user.lastname"
         ></Sidemenu>
 
-        <div class="col-md-6">
+        <div class="col-md-6 scrollbar scrollbar-primary">
           <b-row>
             <Card
               v-for="post in allPosts"
@@ -83,6 +83,14 @@ export default {
 </script>
 
 <style lang="scss">
+.scrollbar{
+    height: 700px;
+    overflow-y: scroll;
+}
+.scrollbar-primary::-webkit-scrollbar {
+    width: 1px;
+  }
+  
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -94,6 +102,13 @@ export default {
 @media all and (min-width: 768px) and (max-width: 1024px) {
   .logo {
     width: 180px !important;
+  }
+  .scrollbar{
+    height: 900px;
+    overflow-y: scroll;
+}
+.scrollbar-primary::-webkit-scrollbar {
+    width: 1px;
   }
 }
 
@@ -108,4 +123,5 @@ export default {
     width: 180px !important;
   }
 }
+
 </style>
