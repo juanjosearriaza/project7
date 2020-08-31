@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="mt-0">
+  
     <b-row>
       <div class="col-md-4 mx-auto my-auto">
         <div class="card mx-auto mt-3">
@@ -28,7 +28,7 @@
         </div>
       </div>
     </b-row>
-  </b-container>
+ 
 </template>
 
 <script>

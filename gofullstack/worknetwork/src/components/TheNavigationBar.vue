@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <b-navbar class="container-fluid" toggleable="lg" type="dark" variant="info">
+    <b-navbar  toggleable="lg" type="dark" variant="info">
       <img
         src="../assets/icon.png"
         alt="logo groupomania"
