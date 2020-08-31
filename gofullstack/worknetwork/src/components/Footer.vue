@@ -1,5 +1,5 @@
 <template>
- <div>
+   <b-container>
     <b-row>
       <b-col>
         <i class="fab fa-facebook"></i>
@@ -12,7 +12,7 @@
         <p>{{ copyright }}</p>
       </b-col>
     </b-row>
-  </div>
+    </b-container>
 </template>
 
 <script>
