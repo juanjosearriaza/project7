@@ -24,7 +24,5 @@ export default {
 </script>
 
 <style lang="css">
-.fab {
-  color:blue;
-}
+
 </style>

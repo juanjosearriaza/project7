@@ -30,6 +30,7 @@
           <img
             class="logo"
             src="../assets/icon-above-font.png"
+            alt="logogroupomania"
             style="height:300px; width: 280px"
           />
         </b-col>

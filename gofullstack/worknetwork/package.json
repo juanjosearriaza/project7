@@ -11,6 +11,8 @@
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
+    "elliptic": "^6.5.3",
+    "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "superstore": "^2.1.0",
     "sweetalert2": "^9.17.1",

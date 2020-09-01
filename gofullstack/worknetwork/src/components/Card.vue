@@ -46,7 +46,7 @@
           <b-button @click="onSendComment" pill variant="primary"
             >Send</b-button
           >
-          <b-button id="comment" @click="onShowComments" pill variant="success">
+          <b-button @click="onShowComments" pill variant="success">
             {{ rightComment.length
             }}<i @click="onShowComments" class="far fa-comment-alt"></i
           ></b-button>
@@ -205,7 +205,7 @@ form {
 button {
   margin-left: 10px;
 }
-#comment {
+.btn-success {
   display: flex;
 }
 svg {
@@ -218,5 +218,8 @@ svg {
 a {
   text-decoration: none!important;
   color:#007bff;
+}
+.btn-primary {
+  color:#100a0a!important
 }
 </style>

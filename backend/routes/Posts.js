@@ -11,6 +11,6 @@ router.put("/:id/view-post", auth, postCtrl.viewPost);
 router.put("/:id/userLiked", auth, postCtrl.userLiked);
 router.put("/:id/userDisliked", auth, postCtrl.userDisliked);
 router.post("/", auth, multer, postCtrl.createPost);
-router.delete("/:id", postCtrl.deletePost);
+router.delete("/:id", auth, postCtrl.deletePost);
 
 module.exports = router;

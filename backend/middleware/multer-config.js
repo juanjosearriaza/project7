@@ -18,21 +18,5 @@ const storage = multer.diskStorage({
   },
 });
 
-/*const fileFilter = (req, file, cb) => {
-  if (!MIME_TYPES[file.mimetype]) {
-    const error = new Error("Incorrect file");
-    error.code = "INCORRECT_FILETYPE";
-    return cb(error, false);
-  }
-  cb(null, true);
-};
-
-const upload = multer({
-  dest: "./images",
-  fileFilter,
-  limits: {
-    fileSize: 12000000
-  }
-});*/
 
 module.exports = multer({storage}).single("image");

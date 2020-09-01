@@ -26,6 +26,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: #3300ff;
+}
 @media all and (max-width: 480px) {
   .flex-column {
     display: none;

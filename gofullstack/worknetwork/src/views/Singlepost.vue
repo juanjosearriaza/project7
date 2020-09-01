@@ -15,7 +15,6 @@
             <router-link :to="{ name: 'Modifyapost', params: { postId } }">
               <a href="#" class="btn btn-primary mt-3 float-left">Modify</a>
             </router-link>
-            <!--<b-button  @click="deletePost(postId); show=true" class="btn btn-danger mt-3 ml-2 float-left">Delete</b-button>-->
             <b-button
               @click="onDelete"
               class="btn btn-danger mt-3 ml-2 float-left"
@@ -93,5 +92,8 @@ export default {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+}
+.btn-primary {
+  color:#100a0a!important
 }
 </style>

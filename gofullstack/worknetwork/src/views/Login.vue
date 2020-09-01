@@ -96,4 +96,7 @@ form {
 a {
   margin-left: 10px;
 }
+.btn-primary {
+  color:#100a0a!important
+}
 </style>

@@ -189,4 +189,7 @@ p {
   margin-left: 10px;
   font-size: 14px;
 }
+.btn-primary {
+  color:#100a0a!important
+}
 </style>
