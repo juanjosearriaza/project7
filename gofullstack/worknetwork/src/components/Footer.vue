@@ -1,5 +1,5 @@
 <template>
-   <b-container>
+<div class="mt-4">
     <b-row>
       <b-col>
         <i class="fab fa-facebook"></i>
@@ -12,7 +12,7 @@
         <p>{{ copyright }}</p>
       </b-col>
     </b-row>
-    </b-container>
+    </div>
 </template>
 
 <script>

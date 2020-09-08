@@ -35,8 +35,8 @@
           />
         </b-col>
       </b-row>
-    </b-container>
     <Footer :copyright="copyright"></Footer>
+    </b-container>
   </div>
 </template>
 
@@ -85,7 +85,7 @@ export default {
 
 <style lang="scss">
 .scrollbar{
-    height: 700px;
+    height: 500px;
     overflow-y: scroll;
 }
 .scrollbar-primary::-webkit-scrollbar {
