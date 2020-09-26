@@ -72,7 +72,6 @@ exports.createPost = async (req, res) => {
     userLiked: [],
     userDisliked: [],
   });
-  post.userId = req.userId;
 
   try {
     const response = await post.save();

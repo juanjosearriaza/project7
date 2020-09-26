@@ -14,6 +14,8 @@
     "elliptic": "^6.5.3",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
+    "node-fetch": "^2.6.1",
+    "node-forge": "^0.10.0",
     "superstore": "^2.1.0",
     "sweetalert2": "^9.17.1",
     "vue": "^2.6.11",
