@@ -25,8 +25,8 @@ const actions = {
       }});
       commit("SET_POSTS", response.data);
       localStorage.setItem("posts", JSON.stringify(response.data))
-    } catch (err) {
-      console.log(err);
+    } catch (err) {      
+      return err;
     }
   },
   async addPost({ commit }, fd) {
@@ -39,8 +39,9 @@ const actions = {
       
       
     } catch (err) {
-      console.log(err);
+      
       commit("ADD_POST_STATUS", false)
+      return err;
     }
   },
   async deletePost({ commit }, id) {
@@ -52,7 +53,7 @@ const actions = {
       commit("DELETE_POST", id);     
       router.push("/home");
     } catch (err) {
-      console.log(err);
+      return err;
     }
   },
   async updatePost({ commit }, formData) {
@@ -65,8 +66,9 @@ const actions = {
       commit("UPDATE_POST_STATUS", true);      
 
     } catch (err) {
-      console.log(err);
-      commit("UPDATE_POST_STATUS", false);      
+      
+      commit("UPDATE_POST_STATUS", false);    
+      return err;  
 
     }
   },
@@ -78,7 +80,7 @@ const actions = {
         }});
       commit("UPDATE_POST", response.data);      
     } catch (err) {
-      console.log(err);
+      return err;
     }
   },
   async onUserLiked({ commit }, data) {
@@ -89,7 +91,7 @@ const actions = {
         }});
       commit("UPDATE_POST", response.data);      
     } catch (err) {
-      console.log(err);
+      return err;
     }
   },
   async onUserDisliked({ commit }, data) {
@@ -100,7 +102,7 @@ const actions = {
         }});
       commit("UPDATE_POST", response.data);      
     } catch (err) {
-      console.log(err);
+      return err;
     }
   },
 };

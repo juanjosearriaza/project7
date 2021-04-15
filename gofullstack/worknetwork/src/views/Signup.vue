@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <b-card class="mt-3 mx-auto col-12 col-md-4">
       <h2>Sign up</h2>
       <b-form @submit.stop.prevent="onSignup" enctype="multipart/form-data">
@@ -88,6 +89,7 @@
 import Footer from "../components/Footer";
 import axios from "axios";
 import { required, sameAs } from "vuelidate/lib/validators";
+
 
 export default {
   name: "Signup",

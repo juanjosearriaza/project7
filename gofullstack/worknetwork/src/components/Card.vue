@@ -6,7 +6,7 @@
       <span v-if="user" class="mr-auto"
         >{{ user.firstname }} {{ user.lastname }}</span
       >
-      <b-badge v-if="createdAt">Posted {{ time }}</b-badge>
+      <b-badge v-if="createdAt">Posted {{ timeDifference }}</b-badge>
     </b-list-group-item>
     <div class="card-body">
       <h5 class="card-title text-left">{{ title }}</h5>
@@ -23,17 +23,24 @@
       >
       <div v-else>
         <router-link :to="{ name: 'Singlepost', params: { id } }">
-          <b-card-img
+          <!--  <b-card-img
             v-if="image"
             :src="image"
             alt="Image"
             class="rounded-0"
             style="width:100%"
-          ></b-card-img>
+          > -->
+          <video width="100%" height="fit-content" autoplay loop muted playsinline poster="../assets/icon.png">
+            <source :src="image" type="video/mp4" />
+          </video>
+          <!--           </b-card-img>
+ -->
         </router-link>
         <div class="footer">
-          <a @click="onLiked" href="#">{{ likesLenght }}<i class="far fa-thumbs-up"></i></a>
-          <a @click="onDisliked" href="#">{{ dislikesLenght }}<i class="far fa-thumbs-down"></i></a>
+          <a @click="onLiked" href="#"
+            >{{ likesLenght }}<b-icon-hand-thumbs-up></b-icon-hand-thumbs-up></a>
+          <a @click="onDisliked" href="#"
+            >{{ dislikesLenght }}<b-icon-hand-thumbs-down></b-icon-hand-thumbs-down></a>
           <b-form method="post">
             <b-form-input
               v-model="comment"
@@ -48,8 +55,7 @@
           >
           <b-button @click="onShowComments" pill variant="success">
             {{ rightComment.length
-            }}<i @click="onShowComments" class="far fa-comment-alt"></i
-          ></b-button>
+            }}<b-icon-chat></b-icon-chat></b-button>
         </div>
       </div>
     </div>
@@ -69,10 +75,12 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Comment from "../components/Comment";
-var moment = require("moment");
+import {BIconHandThumbsUp, BIconHandThumbsDown, BIconChat} from 'bootstrap-vue';
+
 
 export default {
   name: "Card",
+  components: {BIconHandThumbsUp, BIconHandThumbsDown, BIconChat, Comment},
   props: [
     "id",
     "title",
@@ -82,9 +90,8 @@ export default {
     "createdAt",
     "hasBeenRead",
     "userLiked",
-    "userDisliked"
+    "userDisliked",
   ],
-  components: { Comment },
   data() {
     return {
       comment: "",
@@ -145,23 +152,58 @@ export default {
         return err;
       }
     },
-    time() {
+     timeDifference() {
       try {
-        const posted = moment(this.createdAt);
+        var msPerMinute = 60 * 1000;
+        var msPerHour = msPerMinute * 60;
+        var msPerDay = msPerHour * 24;
+        var msPerMonth = msPerDay * 30;
+        var msPerYear = msPerDay * 365;
 
-        return posted.fromNow();
-      } catch (err) {
-        return err;
+        var now = new Date();
+        var myDate = new Date(this.createdAt);
+
+        var difference = now.getTime() - myDate.getTime();
+
+        if (difference < msPerMinute) {
+          return Math.round(difference / 1000) + " seconds ago";
+        } else if (difference < msPerHour) {
+          return Math.round(difference / msPerMinute) + " minutes ago";
+        } else if (difference < msPerDay) {
+          return Math.round(difference / msPerHour) + " hours ago";
+        } else if (difference < msPerMonth) {
+          return (
+            "approximately " + Math.round(difference / msPerDay) + " days ago"
+          );
+        } else if (difference < msPerYear) {
+          return (
+            "approximately " +
+            Math.round(difference / msPerMonth) +
+            " months ago"
+          );
+        } else {
+          return (
+            "approximately " + Math.round(difference / msPerYear) + " years ago"
+          );
+        }
+      } catch (error) {
+        return error;
       }
     },
   },
   methods: {
-    ...mapActions(["addComment", "loadComments", "viewPost", "onUserLiked", "onUserDisliked"]),
+    ...mapActions([
+      "addComment",
+      "loadComments",
+      "viewPost",
+      "onUserLiked",
+      "onUserDisliked",
+    ]),
 
     onSendComment() {
       try {
         if (this.comment !== "") {
-          this.addComment({ comment: this.comment, postId: this.postId });
+          this.addComment({ comment: this.comment, postId: this.postId, userId: this.userLoggedIn });
           this.comment = "";
         }
       } catch (err) {
@@ -178,7 +220,6 @@ export default {
         (this.showPost = false),
           this.viewPost({ id: this.postId, hasBeenRead: this.userLoggedIn });
       } catch (err) {
-        console.log(err);
         return err;
       }
     },
@@ -187,9 +228,40 @@ export default {
     },
     onDisliked() {
       this.onUserDisliked({ id: this.postId, userDisliked: this.userLoggedIn });
-    }
+    },
   },
 };
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    var lazyVideoObserver = new IntersectionObserver(function(entries, lazyVideoObserver) {
+      entries.forEach(function(video) {
+        if (video.isIntersecting) {
+          for (var source in video.target.children) {
+            var videoSource = video.target.children[source];
+            if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+              videoSource.src = videoSource.dataset.src;
+            }
+          }
+
+          video.target.load();
+          video.target.classList.remove("lazy");
+          lazyVideoObserver.unobserve(video.target);
+        }
+      });
+    });
+
+    lazyVideos.forEach(function(lazyVideo) {
+      lazyVideoObserver.observe(lazyVideo);
+    });
+  }
+});
+
+
+
 </script>
 
 <style scoped>
@@ -216,10 +288,10 @@ svg {
   font-size: 11px;
 }
 a {
-  text-decoration: none!important;
-  color:#007bff;
+  text-decoration: none !important;
+  color: #007bff;
 }
 .btn-primary {
-  color:#100a0a!important
+  color: #100a0a !important;
 }
 </style>

@@ -1,36 +1,41 @@
 <template>
-  <div v-if="user">
-    <b-card class="mt-3 mx-auto col-12 col-md-4">
-      <h2>Manage your account</h2>
-      <div class="contactinfo">
-        <div class="title">First Name:</div>
-        <div>{{ user.firstname }}</div>
-        <div class="title">Last Name:</div>
-        <div>{{ user.lastname }}</div>
-        <div class="title">Email Address:</div>
-        <div>{{ user.email }}</div>
-      </div>
-      <div class="d-flex justify-content-center align-items-center">
-        <b-button
-          @click="onDelete"
-          type="submit"
-          class="d-inline-block"
-          variant="danger"
-          >Delete Account</b-button
-        >
-      </div>
-    </b-card>
-    <Footer class="mt-4" :copyright="copyright"></Footer>
+  <div>
+          <TheNavigationBar></TheNavigationBar>
+
+    <div v-if="user">
+      <b-card class="mt-3 mx-auto col-12 col-md-4">
+        <h2>Manage your account</h2>
+        <div class="contactinfo">
+          <div class="title">First Name:</div>
+          <div>{{ user.firstname }}</div>
+          <div class="title">Last Name:</div>
+          <div>{{ user.lastname }}</div>
+          <div class="title">Email Address:</div>
+          <div>{{ user.email }}</div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+          <b-button
+            @click="onDelete"
+            type="submit"
+            class="d-inline-block"
+            variant="danger"
+            >Delete Account</b-button
+          >
+        </div>
+      </b-card>
+      <Footer class="mt-4" :copyright="copyright"></Footer>
+    </div>
   </div>
 </template>
 
 <script>
 import Footer from "../components/Footer";
 import { mapActions } from "vuex";
+import TheNavigationBar from "../components/TheNavigationBar.vue";
 
 export default {
   name: "Manageyouraccount",
-  components: { Footer },
+  components: { Footer, TheNavigationBar },
 
   computed: {
     copyright() {
@@ -98,5 +103,10 @@ div {
 }
 .d-flex {
   margin-top: 20px;
+}
+@media all and (max-width: 480px) {
+  .footer {
+    position: static;
+  }
 }
 </style>

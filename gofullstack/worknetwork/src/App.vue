@@ -1,25 +1,30 @@
 <template>
   <div id="app">
-    
-    <TheNavigationBar></TheNavigationBar>
- 
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
-
 <script>
-import TheNavigationBar from "./components/TheNavigationBar"
-
 export default {
-  components: {
-    TheNavigationBar
+  name: "App",
+  
+};
+</script>
+
+<style lang="css">
+* {
+  font-family: "Roboto", "Times New Roman", Times, serif;
+}
+
+body {
+  background-color: lavender !important;
+  padding-top: 70px;
+}
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+  body {
+    padding-top: 120px;
   }
 }
-</script>
-<style lang="scss">
-body {
-  background-color:#f2f3f5!important;
-}
-
-
 </style>

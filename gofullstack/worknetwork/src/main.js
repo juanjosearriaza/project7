@@ -6,24 +6,46 @@ import Vuelidate from 'vuelidate'
 import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.use(VueSweetalert2);
-
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 
 Vue.use(VueAxios, axios)
 
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css' 
 
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
+
 import router from './router'
 import store from './store'
 
+import {  AlertPlugin, FormFilePlugin, BadgePlugin, AvatarPlugin, ListGroupPlugin, InputGroupPlugin, SidebarPlugin, TooltipPlugin, LayoutPlugin, NavbarPlugin, FormInputPlugin, FormGroupPlugin, FormPlugin, CardPlugin, ButtonPlugin, ImagePlugin } from 'bootstrap-vue'
+Vue.use(LayoutPlugin)
+Vue.use(NavbarPlugin)
+Vue.use(FormInputPlugin)
+Vue.use(FormGroupPlugin)
+Vue.use(FormPlugin)
+Vue.use(CardPlugin)
+Vue.use(ButtonPlugin)
+Vue.use(ImagePlugin)
+Vue.use(TooltipPlugin)
+Vue.use(SidebarPlugin)
+Vue.use(InputGroupPlugin)
+Vue.use(ListGroupPlugin)
+Vue.use(AvatarPlugin)
+Vue.use(BadgePlugin)
+Vue.use(FormFilePlugin)
+Vue.use(AlertPlugin)
 
-Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
+
+
+
+
+
+
+
+
+
+
 
 Vue.config.productionTip = false
 
@@ -33,3 +55,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+

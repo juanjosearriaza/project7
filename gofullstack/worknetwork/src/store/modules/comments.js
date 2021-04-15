@@ -20,7 +20,7 @@ const actions = {
       comments.unshift(response.data)
       localStorage.setItem("comments", JSON.stringify(comments))*/
     } catch (err) {
-      console.log(err);
+      return err;
     }
   },
   async loadComments({ commit }) {
@@ -31,7 +31,7 @@ const actions = {
       commit("LOAD_COMMENTS", response.data);
       localStorage.setItem("comments", JSON.stringify(response.data))
     } catch (err) {
-      console.log(err);
+      return err;
     }
   },
   

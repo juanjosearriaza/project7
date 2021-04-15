@@ -1,17 +1,18 @@
 <template>
-  <div id="app">
-    <b-container fluid class="mt-3">
-      <b-row>
+    <b-container fluid class="mt-0 text-center">
+      <TheNavigationBar v-model="searchQuery"></TheNavigationBar>
+      <b-row class="mt-3 mx-0">
         <Sidemenu
           v-if="user"
           :firstname="user.firstname"
           :lastname="user.lastname"
         ></Sidemenu>
 
+
         <div class="col-md-6 scrollbar scrollbar-primary">
-          <b-row>
+          <!-- <b-row> -->
             <Card
-              v-for="post in allPosts"
+              v-for="post in resultQuery"
               :id="post.id"
               :userId="post.userId"
               :title="post.title"
@@ -23,7 +24,7 @@
               :userDisliked="post.userDisliked"
               :key="post.id"
             ></Card>
-          </b-row>
+          <!-- </b-row> -->
         </div>
 
         <b-col class="d-none d-sm-block" md="3">
@@ -35,21 +36,27 @@
           />
         </b-col>
       </b-row>
-    <Footer :copyright="copyright"></Footer>
+      <Footer class="mt-4" :copyright="copyright"></Footer>
     </b-container>
-  </div>
 </template>
 
 <script>
 import Sidemenu from "../components/Sidemenu";
-
-import Card from "../components/Card";
-import Footer from "../components/Footer";
+const Card = () => import("../components/Card");
 import { mapGetters, mapActions } from "vuex";
+import TheNavigationBar from '../components/TheNavigationBar.vue';
+import Footer from "../components/Footer";
+
 
 export default {
-  name: "App",
-  components: { Sidemenu, Card, Footer },
+  name: "Home",
+  components: { Sidemenu, Card, Footer, TheNavigationBar },
+  
+  data() {
+    return {
+      searchQuery: null,
+    }
+  },
 
   mounted() {
     this.loadPosts(), this.loadUsers(), this.loadComments();
@@ -61,9 +68,8 @@ export default {
   computed: {
     ...mapGetters(["allPosts", "allUsers", "allComments"]),
 
-    copyright() {
+     copyright() {
       const currentYear = new Date().getFullYear();
-
       return `Copyright ${currentYear}`;
     },
     user() {
@@ -79,23 +85,36 @@ export default {
         return err;
       }
     },
+
+    resultQuery() {
+      if ( this.searchQuery ) {
+        return this.allPosts.filter(( post ) => {
+          return this.searchQuery.toLowerCase().split(" ").every( word => post.title.toLowerCase().includes(word))
+        })
+      } else {
+        return this.allPosts
+      }
+    }
   },
 };
+
+
+
+
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+.footer {
+  position: static;
+}
 .scrollbar{
-    height: 500px;
     overflow-y: scroll;
 }
 .scrollbar-primary::-webkit-scrollbar {
     width: 1px;
   }
   
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+b-container {
   text-align: center;
   background-color: #f2f3f5;
 }
@@ -122,6 +141,15 @@ export default {
 @media all and (max-width: 480px) {
   .logo {
     width: 180px !important;
+  }
+  .row {
+    margin-right: -15px!important;
+    margin-left: -15px!important;
+  }
+  .scrollbar {
+    padding-left: 0!important;
+    padding-right: 0!important;
+
   }
 }
 

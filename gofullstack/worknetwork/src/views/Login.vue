@@ -1,6 +1,17 @@
 <template>
-  <div>
-    <b-card class="mt-5 mx-auto col-12 col-md-4">
+  <b-container fluid class="p-0">
+    <TheNavigationBar></TheNavigationBar>
+    <b-row class="mt-3 mb-3">
+      <b-col>
+        <b-img
+          center
+          :src="require(`../assets/icon-above-font.png`)"
+          alt="logo groupomania"
+        ></b-img>
+      </b-col>
+    </b-row>
+
+    <b-card class="mx-auto col-12 col-md-4">
       <h2>Log in</h2>
       <b-form
         action="http://localhost:3000/api/auth/login"
@@ -37,17 +48,23 @@
         </div>
       </b-form>
     </b-card>
-    <Footer class="mt-4" :copyright="copyright"></Footer>
-  </div>
+
+    <b-row>
+      <b-col>
+        <Footer :copyright="copyright"></Footer>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 import Footer from "../components/Footer";
+import TheNavigationBar from "../components/TheNavigationBar";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Login",
-  components: { Footer },
+  components: { Footer, TheNavigationBar },
   data() {
     return {
       form: {
@@ -97,6 +114,13 @@ a {
   margin-left: 10px;
 }
 .btn-primary {
-  color:#100a0a!important
+  color: #100a0a !important;
+}
+h2 {
+  text-align: center;
+}
+img {
+  height: 100px;
+  width: 100px;
 }
 </style>

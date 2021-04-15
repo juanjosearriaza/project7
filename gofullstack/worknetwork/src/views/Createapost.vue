@@ -1,5 +1,7 @@
 <template>
   <div>
+          <TheNavigationBar></TheNavigationBar>
+
     <b-card class="mt-5 mx-auto col-12 col-md-4">
       <h2>Create a Post</h2>
       <b-form
@@ -53,20 +55,22 @@
 </template>
 
 <script>
+import TheNavigationBar from '../components/TheNavigationBar.vue';
+
 import Footer from "../components/Footer";
 //import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CreateaPost",
-  components: { Footer },
+  components: { Footer, TheNavigationBar },
   data() {
     return {
       title: "",
       description: "",
       image: null,
       hasBeenRead: [localStorage.getItem("userId")],
-     
+      userId: localStorage.getItem("userId"),
     };
   },
   computed: {
@@ -93,6 +97,8 @@ export default {
         fd.append("title", this.title);
         fd.append("description", this.description);
         fd.append("hasBeenRead", this.hasBeenRead);
+        fd.append("userId", this.userId);
+
        
 
         this.addPost(fd).then(() => {

@@ -63,19 +63,24 @@ exports.modifyPost = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const url = req.protocol + "://" + req.get("host");
+  let fileNameMp4 = req.file.filename.split(".")[0] + ".mp4"
 
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
-    image: url + "/images/" + req.file.filename,
+    image: url + "/images/" + fileNameMp4,
     hasBeenRead: [req.body.hasBeenRead],
+    userId: req.body.userId,
     userLiked: [],
     userDisliked: [],
   });
 
+  
   try {
-    const response = await post.save();
+    await post.save();
     res.status(201).json(post);
+   
+    
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.message });

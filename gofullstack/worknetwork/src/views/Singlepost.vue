@@ -1,17 +1,17 @@
 <template>
-  
+  <div>
+    <TheNavigationBar></TheNavigationBar>
+
     <b-row>
       <div class="col-md-4 mx-auto my-auto">
         <div class="card mx-auto mt-3">
           <div class="card-body">
             <h5 class="card-title text-left">{{ post.title }}</h5>
             <p class="card-text text-left">{{ post.description }}</p>
-            <b-card-img
-              :src="post.image"
-              alt="Image"
-              class="rounded-0"
-              style="width:100%"
-            ></b-card-img>
+            
+            <video width="100%" autoplay loop muted playsinline>
+              <source :src="post.image" type="video/mp4" />
+            </video>
             <router-link :to="{ name: 'Modifyapost', params: { postId } }">
               <a href="#" class="btn btn-primary mt-3 float-left">Modify</a>
             </router-link>
@@ -27,14 +27,17 @@
         </div>
       </div>
     </b-row>
- 
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import TheNavigationBar from "../components/TheNavigationBar.vue";
+
 
 export default {
   name: "Singlepost",
+  components: { TheNavigationBar },
   data() {
     return {
       postId: this.$route.params.id,
@@ -94,6 +97,8 @@ export default {
   margin-right: auto;
 }
 .btn-primary {
-  color:#100a0a!important
+  color: #100a0a !important;
 }
+
+
 </style>

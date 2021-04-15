@@ -5,15 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "bootstrap-vue": "^2.16.0",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-    "elliptic": "^6.5.3",
+    "elliptic": "^6.5.4",
     "lodash": "^4.17.20",
-    "moment": "^2.27.0",
     "node-fetch": "^2.6.1",
     "node-forge": "^0.10.0",
     "superstore": "^2.1.0",
@@ -26,7 +26,6 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
@@ -37,6 +36,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^4.4.0"
   }
 }

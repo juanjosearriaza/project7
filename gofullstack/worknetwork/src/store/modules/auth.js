@@ -27,8 +27,8 @@ const actions = {
           localStorage.setItem("userId", response.data.userId)
           router.push("/home");
         } catch (err) {
-          console.log(err);
           commit("ON_USER_LOGGED_IN", false)
+          return err;
         }
       },
       onLogout({ commit }) {

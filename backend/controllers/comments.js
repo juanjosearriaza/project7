@@ -15,9 +15,10 @@ exports.createComment = async (req, res) => {
   
     const comment = new Comment({
       comment: req.body.comment,
-      postId: req.body.postId
+      postId: req.body.postId,
+      userId: req.body.userId,
     });
-    comment.userId = req.userId
+    
     try {
       const response = await comment.save();
       res.status(201).json({ message: "Comment saved successfully!" });

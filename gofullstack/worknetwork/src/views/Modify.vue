@@ -1,5 +1,7 @@
 <template>
   <div>
+          <TheNavigationBar></TheNavigationBar>
+
     <b-card class="mt-2 mx-auto col-12 col-md-4">
       <h2>Modify Post</h2>
       <b-form enctype="multipart/form-data">
@@ -30,20 +32,13 @@
           ></b-form-input>
         </b-form-group>
         <div id="preview">
-          <b-card-img
-            v-if="image"
-            :src="image"
-            alt="Image"
-            class="rounded-0"
-            style="width:100%"
-          ></b-card-img>
-          <b-card-img
-            v-else
-            :src="post.image"
-            alt="Image"
-            class="rounded-0"
-            style="width:100%"
-          ></b-card-img>
+          <video v-if="image" width="100%" autoplay loop muted playsinline>
+              <source alt="Image" class="rounded-0" :src="post.image" type="video/mp4" />
+            </video>
+          <video v-else width="100%" autoplay loop muted playsinline>
+              <source  alt="Image" class="rounded-0" :src="post.image" type="video/mp4" />
+            </video>
+          
         </div>
 
         <b-form-group class="mt-3" id="file" label="Image:" label-for="file">
@@ -67,10 +62,12 @@
 <script>
 import Footer from "../components/Footer";
 import { mapActions, mapGetters } from "vuex";
+import TheNavigationBar from '../components/TheNavigationBar.vue';
+
 
 export default {
   name: "ModifyaPost",
-  components: { Footer },
+  components: { Footer, TheNavigationBar },
   data() {
     return {
       postId: this.$route.params.id,
@@ -163,5 +160,8 @@ a {
 }
 .btn-primary {
   color:#100a0a!important
+}
+.footer {
+  position: static;
 }
 </style>
