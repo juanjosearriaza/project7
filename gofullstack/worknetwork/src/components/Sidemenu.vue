@@ -26,21 +26,7 @@
       <div class="menu__open-accent--1"></div>
       <div class="menu__open-accent--2"></div>
     </b-nav>
-    <!-- <b-navbar vertical toggleable="lg" type="light" variant="light">
-      <div>
-        <b-nav vertical class="text-left">
-          <b-nav-item href="#">{{ firstname }} {{ lastname }}</b-nav-item>
-          <b-nav-item href="#"
-            ><router-link to="/createapost"
-              >Create a Post</router-link
-            ></b-nav-item
-          >
-          <b-nav-item href="#">Events</b-nav-item>
-          <b-nav-item href="#">Jobs</b-nav-item>
-          <b-nav-item href="#">Wishlist</b-nav-item>
-        </b-nav>
-      </div>
-    </b-navbar> -->
+    
   </b-col>
 </template>
 
@@ -166,25 +152,7 @@ export default {
     transform: scaleY(0);
   }
 }
-/* .nav-item {
-  background-color: #fff;
-  margin: 5px 10px;
-}
 
-.nav-item::before {
-  content: "";
-  position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background-color: lawngreen;
-  width: 20px;
-}
-
-a {
-  color: black;
-  text-decoration: none;
-} */
 
 @media all and (max-width: 480px) {
   .flex-column {

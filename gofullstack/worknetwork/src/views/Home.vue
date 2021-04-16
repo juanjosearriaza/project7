@@ -10,7 +10,6 @@
 
 
         <div class="col-md-6 scrollbar scrollbar-primary">
-          <!-- <b-row> -->
             <Card
               v-for="post in resultQuery"
               :id="post.id"
@@ -24,7 +23,6 @@
               :userDisliked="post.userDisliked"
               :key="post.id"
             ></Card>
-          <!-- </b-row> -->
         </div>
 
         <b-col class="d-none d-sm-block" md="3">

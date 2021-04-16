@@ -23,18 +23,11 @@
       >
       <div v-else>
         <router-link :to="{ name: 'Singlepost', params: { id } }">
-          <!--  <b-card-img
-            v-if="image"
-            :src="image"
-            alt="Image"
-            class="rounded-0"
-            style="width:100%"
-          > -->
+          
           <video width="100%" height="fit-content" autoplay loop muted playsinline poster="../assets/icon.png">
             <source :src="image" type="video/mp4" />
           </video>
-          <!--           </b-card-img>
- -->
+          
         </router-link>
         <div class="footer">
           <a @click="onLiked" href="#"

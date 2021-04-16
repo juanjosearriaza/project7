@@ -46,31 +46,10 @@
               >Wishlist
               <div class="menu__item-accent"></div
             ></b-nav-item>
-            </b-nav>
+          </b-nav>
         </div>
       </b-sidebar>
 
-      <!-- <b-dropdown
-        v-if="isAuthenticated"
-        id="dropdown-left"
-        text="Menu"
-        variant="light"
-        class="m-2"
-      >
-        <b-dropdown-item href="#">{{ user.firstname }}</b-dropdown-item>
-        <b-dropdown-item href="#">{{ user.lastname }}</b-dropdown-item>
-        <b-dropdown-item href="#"
-          ><router-link to="/createapost"
-            >Create a Post</router-link
-          ></b-dropdown-item
-        >
-        <b-dropdown-item href="#">Events</b-dropdown-item>
-        <b-dropdown-item href="#">Jobs</b-dropdown-item>
-        <b-dropdown-item href="#">Wishlist</b-dropdown-item>
-      </b-dropdown> -->
-
-      <!--       <b-collapse id="nav-collapse" is-nav>
- -->
       <b-navbar-nav class="mx-auto" v-if="$route.name !== 'Login'">
         <b-nav-item to="/home">
           <b-button
@@ -190,7 +169,6 @@ body {
   background-color: #f2f3f5 !important;
 }
 
-
 .menu {
   height: fit-content;
   flex-direction: column;
@@ -202,17 +180,17 @@ body {
   position: relative;
   animation: menu 661ms both;
   z-index: 1;
-  
+
   &__item {
-    padding: 8px!important;
-    margin: 5px!important;
+    padding: 8px !important;
+    margin: 5px !important;
     background: #fff;
     animation: menu__item 810ms ease-in-out both;
     position: relative;
     z-index: 4;
-    
+
     > a {
-      color: black;      
+      color: black;
       > a {
         color: black;
         &:hover {
@@ -232,10 +210,8 @@ body {
   }
 }
 
-
 .nav-item {
   margin: 0 0.2rem;
- 
 }
 
 @media all and (min-width: 768px) {
@@ -261,7 +237,7 @@ body {
     float: right;
   }
   .navbar {
-    padding: 0.3rem!important;
+    padding: 0.3rem !important;
   }
   .navbar-nav {
     flex-direction: row;
