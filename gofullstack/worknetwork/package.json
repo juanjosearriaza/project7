@@ -13,7 +13,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "elliptic": "^6.5.4",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
     "node-forge": "^0.10.0",
     "superstore": "^2.1.0",
